@@ -5,6 +5,9 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor'; // Ajuste o caminho conforme o seu projeto
+
 export const appConfig: ApplicationConfig = {
-  providers: [provideAnimations(),provideRouter(routes), provideClientHydration()]
+  providers: [provideAnimations(),provideRouter(routes), provideClientHydration(), provideHttpClient(withInterceptors([authInterceptor]))]
 };

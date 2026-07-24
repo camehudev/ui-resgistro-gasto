@@ -1,24 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; // Importação essencial
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [DividerModule, ButtonModule, InputTextModule],
+  imports: [DividerModule, ButtonModule, InputTextModule, ReactiveFormsModule,],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: AuthService) {}
+
+  formGroup!: FormGroup;
 
   showDashboard() {
     // Implement your logic to show the dashboard here
-    this.router.navigate(['/dashboard']);
+    //this.router.navigate(['/dashboard']);
+    console.log(this.formGroup.value);
+    this.loginService.login(this.formGroup.value).subscribe(
+      (response) => {
+        console.log('Login successful:', response);
+        // Navigate to the dashboard or another page after successful login
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        console.error('Login failed:', error);
+        // Handle login error (e.g., show an error message)
+      }
+    );
   }
+
+  ngOnInit() {
+        this.formGroup = new FormGroup({
+            email: new FormControl<string | null>(null),
+            senha: new FormControl<string | null>(null)
+        });
+    }
 
 }

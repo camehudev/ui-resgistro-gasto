@@ -48,3 +48,57 @@
         </ng-template>
     </p-menubar>
 </div>
+
+
+<div class="card" style="margin-top: 2rem; padding: 1rem;">
+    <p-table
+    [value]="gastosRegistrados" [
+    tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.catergoria }}</td>
+                <td>{{ product.valor }}</td>
+                <td>{{ product.descricao }}</td>
+                <td>{{ product.data }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<div class="card" style="margin-top: 1.5rem;margin-bottom: 1.5rem; padding: 1rem;">
+  <span class="font-bold" >RESUMO DE GASTOS</span>
+    <p-table
+    [value]="resumo"
+    tableStyle]="{ 'max-width': '10rem' }"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>CATEGORIA</th>
+                <th>VALOR</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.categoria }}</td>
+                <td>{{ product.total | currency:'BRL':'symbol':'1.2-2' }}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -6,17 +6,53 @@ import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
+import { GastoService } from '../../services/gasto.service';
+import { Gasto } from '../../models/gasto.model';
+
+import { TableModule } from 'primeng/table';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
+
   items: MenuItem[] | undefined;
+
+  resumo: Gasto[] = [];
+  gastosRegistrados: Gasto[] = [];
+
+
+  constructor(private gastoService: GastoService) {}
+
+  listResumo(){
+     this.gastoService.resumoGastos().subscribe({
+      next: (dados) => {
+        this.resumo = dados;
+        console.log('Resumo de gastos:', this.resumo);
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar gastos:', erro);
+      }
+    });
+
+  }
+
+  listarGastos(){
+    this.gastoService.listarTodos().subscribe({
+      next: (dados) => {
+        this.gastosRegistrados = dados;
+
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar gastos:', erro);
+      }
+    });
+  }
 
     ngOnInit() {
         this.items = [
@@ -74,7 +110,11 @@ export class DashboardComponent implements OnInit {
                 badge: '3'
             }
         ];
+
+        this.listarGastos();
+        this.listResumo();
     }
+
 
 
 }
