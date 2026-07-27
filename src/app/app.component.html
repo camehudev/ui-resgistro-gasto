@@ -1,8 +1,8 @@
 <!-- O seu layout principal -->
 <router-outlet></router-outlet>
 
-<!-- Spinner Global Overlay com sintaxe nativa @if -->
-@if (loadingService.loading$ | async) {
+<!-- Spinner Global Overlay controlando pela propriedade limpa do componente -->
+@if (isLoading) {
   <div class="spinner-overlay">
     <div class="spinner"></div>
     <p>Carregando dados financeiros...</p>

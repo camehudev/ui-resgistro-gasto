@@ -7,14 +7,13 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host'; // Substitua pelo URL real da sua API
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; senha: string }): Observable<{ token: string }> {
-    console.log('Login credentials:', credentials);
 
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap(response => {
         // Armazena o token JWT no localStorage ao logar com sucesso
         localStorage.setItem('auth_token', response.token);

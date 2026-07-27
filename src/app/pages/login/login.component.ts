@@ -23,10 +23,8 @@ export class LoginComponent implements OnInit {
   showDashboard() {
     // Implement your logic to show the dashboard here
     //this.router.navigate(['/dashboard']);
-    console.log(this.formGroup.value);
     this.loginService.login(this.formGroup.value).subscribe(
       (response) => {
-        console.log('Login successful:', response);
         // Navigate to the dashboard or another page after successful login
         this.router.navigate(['/dashboard']);
       },

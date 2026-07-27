@@ -10,6 +10,7 @@ import { GastoService } from '../../services/gasto.service';
 import { Gasto } from '../../models/gasto.model';
 
 import { TableModule } from 'primeng/table';
+import { CategoriaSomaDTO } from '../../interfaces/categoria-soma.model';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  resumo: Gasto[] = [];
+  resumo: any = [];
   gastosRegistrados: Gasto[] = [];
 
 
@@ -33,7 +34,6 @@ export class DashboardComponent implements OnInit {
      this.gastoService.resumoGastos().subscribe({
       next: (dados) => {
         this.resumo = dados;
-        console.log('Resumo de gastos:', this.resumo);
       },
       error: (erro) => {
         console.error('Erro ao buscar gastos:', erro);

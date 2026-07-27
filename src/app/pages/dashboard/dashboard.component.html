@@ -52,8 +52,8 @@
 
 <div class="card" style="margin-top: 2rem; padding: 1rem;">
     <p-table
-    [value]="gastosRegistrados" [
-    tableStyle]="{ 'min-width': '50rem' }"
+    [value]="gastosRegistrados"
+    [tableStyle]="{ 'min-width': '50rem' }"
     [paginator]="true"
     [rows]="5"
     [rowsPerPageOptions]="[5, 10, 20]">
@@ -82,7 +82,7 @@
   <span class="font-bold" >RESUMO DE GASTOS</span>
     <p-table
     [value]="resumo"
-    tableStyle]="{ 'max-width': '10rem' }"
+    [tableStyle]="{ 'max-width': '10rem' }"
     [paginator]="true"
     [rows]="5"
     [rowsPerPageOptions]="[5, 10, 20]">
