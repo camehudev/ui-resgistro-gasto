@@ -7,6 +7,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,19 +21,22 @@ export class LoginComponent implements OnInit {
 
   formGroup!: FormGroup;
 
-  showDashboard() {
-    // Implement your logic to show the dashboard here
-    //this.router.navigate(['/dashboard']);
-    this.loginService.login(this.formGroup.value).subscribe(
-      (response) => {
-        // Navigate to the dashboard or another page after successful login
+ showDashboard() {
+    this.loginService.login(this.formGroup.value).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response.token);
+
+        // Exemplo de salvamento após o sucesso do login
+         localStorage.setItem('token', response.token);
+
+        // Navega para o dashboard após o sucesso no login
         this.router.navigate(['/dashboard']);
       },
-      (error) => {
+      error: (error) => {
         console.error('Login failed:', error);
-        // Handle login error (e.g., show an error message)
+        // Trate o erro aqui (ex: exibir mensagem amigável para o usuário)
       }
-    );
+    });
   }
 
   ngOnInit() {

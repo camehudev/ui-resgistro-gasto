@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loadingService';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { MenuBarComponent } from "./components/menu-bar/menu-bar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, MenuBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

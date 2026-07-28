@@ -1,5 +1,5 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -9,5 +9,16 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor'; // Ajuste o caminho conforme o seu projeto
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideAnimations(),provideRouter(routes), provideClientHydration(), provideHttpClient(withInterceptors([authInterceptor]))]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(
+      routes,
+      withComponentInputBinding() // Opcional: facilita a passagem de parâmetros de rotas como @Input()
+    ),
+    provideClientHydration(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
+    provideAnimations()
+  ]
 };
