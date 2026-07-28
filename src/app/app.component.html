@@ -1,5 +1,9 @@
 <!-- O seu layout principal -->
- <app-menu-bar></app-menu-bar>
+ @if (isLoggedIn$ | async) {
+    <app-menu-bar></app-menu-bar>
+ }
+
+
 <router-outlet></router-outlet>
 
 <!-- Spinner Global Overlay controlando pela propriedade limpa do componente -->

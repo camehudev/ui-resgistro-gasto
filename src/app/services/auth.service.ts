@@ -1,43 +1,53 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap, catchError, of, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private http = inject(HttpClient);
   private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host';
 
-  constructor(private http: HttpClient) {}
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  /**
-   * Realiza a autenticação enviando as credenciais.
-   * O back-end define o cookie HttpOnly na resposta.
-   */
   login(credentials: { email: string; senha: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, credentials, {
-      withCredentials: true // Essencial para o navegador aceitar o cookie HttpOnly da API
-    });
+      withCredentials: true
+    }).pipe(
+      tap(() => {
+        this.isAuthenticatedSubject.next(true);
+      })
+    );
   }
 
-  /**
-   * Envia uma requisição de logout para o back-end limpar o cookie de sessão.
-   */
   logout(): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/logout`, {}, {
       withCredentials: true
-    });
+    }).pipe(
+      tap(() => {
+        this.isAuthenticatedSubject.next(false);
+      })
+    );
   }
 
-  /**
-   * Como o token está em um cookie HttpOnly, o front-end não consegue ler o seu valor por JavaScript.
-   * A validação de estado logado geralmente depende de um endpoint de status (/me) ou de uma flag booleana leve.
+ /**
+   * Consulta o endpoint no back-end para validar se a sessão do cookie HttpOnly ainda está ativa.
+   * Tipado explicitamente como Observable<boolean> para satisfazer o TypeScript.
    */
-  isLoggedIn(): Observable<boolean> {
-    // Exemplo arquitetural: Opcionalmente consulte um endpoint /api/usuarios/me para validar a sessão
-    // Ou gerencie o estado visual via BehaviorSubject no client-side após o login bem-sucedido.
+  checkSession(): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/auth/check-session`, {
       withCredentials: true
-    });
+    }).pipe(
+      tap(() => {
+        this.isAuthenticatedSubject.next(true);
+      }),
+      map(() => true), // Garante que o fluxo bem-sucedido emita explicitamente true
+      catchError(() => {
+        this.isAuthenticatedSubject.next(false);
+        return of(false); // Retorna um Observable<boolean> contendo false
+      })
+    );
   }
 }
