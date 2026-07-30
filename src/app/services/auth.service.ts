@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap, catchError, of, map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthService {
   }
   private http = inject(HttpClient);
   private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host';
-  private apiUrl2 = 'https://local';
+  private apiUrl2 = 'http://localhost:5000';
+   private readonly baseUrl = `${environment.apiUrl}`;
 
   // Mantemos o BehaviorSubject.
   // Dica de Arquiteto: Se quisermos evitar que o menu suma no F5,
@@ -20,7 +22,7 @@ export class AuthService {
   public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   login(credentials: { email: string; senha: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials, {
+    return this.http.post(`${this.baseUrl}/auth/login`, credentials, {
       withCredentials: true
     }).pipe(
       tap(() => {
@@ -30,7 +32,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/logout`, {}, {
+    return this.http.post(`${this.baseUrl}/auth/logout`, {}, {
       withCredentials: true
     }).pipe(
       tap(() => {

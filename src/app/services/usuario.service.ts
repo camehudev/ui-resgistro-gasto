@@ -7,7 +7,9 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host/api/usuarios';
+  //private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host/api/usuarios';
+  private apiUrl = 'http://localhost:5000';
+
 
   constructor(private http: HttpClient) {}
 
