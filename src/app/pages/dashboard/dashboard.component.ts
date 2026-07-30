@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
     this.gastoService.listarTodos().subscribe({
       next: (dados) => {
         this.gastosRegistrados = dados;
-        //this.listResumo();
 
       },
       error: (erro) => {
@@ -48,7 +47,6 @@ export class DashboardComponent implements OnInit {
      this.gastoService.resumoGastos().subscribe({
 
       next: (dados) => {
-        console.log('Resumo de gastos:', dados);
         this.resumo = dados;
       },
       error: (erro) => {
@@ -59,8 +57,8 @@ export class DashboardComponent implements OnInit {
   }
 
     ngOnInit() {
-
         this.listarGastos();
+        this.listResumo();
     }
 
 
