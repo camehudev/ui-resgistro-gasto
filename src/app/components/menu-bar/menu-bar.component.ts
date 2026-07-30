@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PanelMenuModule } from 'primeng/panelmenu'; // Ou o módulo do PrimeNG que estiver usando para o menu
@@ -10,19 +10,48 @@ import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ButtonModule } from 'primeng/button';
+import { ListboxModule } from 'primeng/listbox';
+import { DividerModule } from 'primeng/divider';
 
-
+export interface OverlayItem {
+  name: string;
+  route?: string;
+  // outras propriedades se houver
+}
 
 @Component({
   selector: 'app-menu-bar',
   standalone: true,
-   imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule],
+   imports: [
+    DividerModule,
+    MenubarModule,
+    BadgeModule,
+    AvatarModule,
+    InputTextModule,
+    RippleModule,
+    CommonModule,
+    TableModule,
+    OverlayPanelModule,
+    ButtonModule,
+    ListboxModule,
+    RouterModule],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css'
 })
 
-export class MenuBarComponent {
+export class MenuBarComponent implements OnInit {
    private authService = inject(AuthService);
+   logado = this.authService.isAuthenticated$; // Substitua pelo seu Observable de autenticação
+   visibleMenu:boolean = false; // Inicialmente o menu não é visível
+
+   itemsOverlay: any[] = [
+    { name: 'Perfil', icon: 'pi pi-user' },
+    { name: 'Configurações', icon: 'pi pi-cog' },
+    { name: 'Sair', icon: 'pi pi-sign-out', command: () => this.fazerLogout() }
+  ];
+
 
 // Tipagem forte com MenuItem[]
   items: MenuItem[] = [
@@ -76,11 +105,7 @@ export class MenuBarComponent {
         }
       ]
     },
-    {
-      label: 'Contact',
-      icon: 'pi pi-envelope',
-      badge: '3'
-    }
+
   ];
 
 
@@ -89,6 +114,12 @@ export class MenuBarComponent {
       next: () => window.location.href = '/login',
       error: () => window.location.href = '/login'
     });
+    this.visibleMenu = false; // Oculta o menu após o logout
+  }
+
+  ngOnInit(): void {
+
+
   }
 
 }

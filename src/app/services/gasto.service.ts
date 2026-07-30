@@ -14,8 +14,8 @@ export class GastoService {
   constructor(private http: HttpClient) {}
 
   listarTodos(): Observable<Gasto[]> {
-    //return this.http.get<Gasto[]>(`https://pessoal-proj-java-registro.sjj3wv.easypanel.host/gastos`);
     return this.http.get<Gasto[]>(`https://pessoal-proj-java-registro.sjj3wv.easypanel.host/gastos`);
+    //return this.http.get<Gasto[]>(`https://pessoal-proj-java-registro.sjj3wv.easypanel.host/gastos`);
   }
 
   resumoGastos(): Observable<any> {

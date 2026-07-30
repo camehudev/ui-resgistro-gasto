@@ -1,10 +1,13 @@
-<!-- O seu layout principal -->
- @if (isLoggedIn$ | async) {
+<div class="app-layout">
+  <!-- O uso do async pipe gerencia o ciclo reativo sem conflitos de change detection -->
+  <ng-container >
     <app-menu-bar></app-menu-bar>
- }
+  </ng-container>
 
-
-<router-outlet></router-outlet>
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>
 
 <!-- Spinner Global Overlay controlando pela propriedade limpa do componente -->
 @if (isLoading) {

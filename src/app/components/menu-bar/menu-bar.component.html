@@ -1,4 +1,4 @@
-<div class="card">
+<div>
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,10 +44,33 @@
         </ng-template>
 
         <ng-template pTemplate="end">
-            <div class="flex align-items-center gap-2">
+            <!-- <div type="button" class="flex align-items-center gap-2">
                 <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+            </div> -->
+
+            <div class="flex">
+                <p-button (onClick)="op.toggle($event)" icon="pi pi-user" [rounded]="true" size="small" />
+                <p-overlayPanel class="p-overlaypanel p-overlaypanel-content" #op>
+                     <div class="flex flex-column" >
+                        <span style="cursor: pointer;">
+                           <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
+                          &nbsp;Perfil</span>
+                        <p-divider type="solid" />
+                        <span style="cursor: pointer;">
+                          <i class="pi pi-cog" style="color: rgb(144, 143, 143)"></i>
+                          &nbsp; Configurações</span>
+                        <p-divider type="solid" class="mb-3" />
+                        <span (click)="fazerLogout()" style="cursor: pointer;">
+                          <i class="pi pi-sign-out" style="color: rgb(144, 143, 143)"></i>
+                          &nbsp;Sair
+                        </span>
+                      </div>
+
+                </p-overlayPanel>
             </div>
         </ng-template>
     </p-menubar>
+
 </div>
+

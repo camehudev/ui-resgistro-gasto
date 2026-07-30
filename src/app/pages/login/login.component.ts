@@ -24,10 +24,6 @@ export class LoginComponent implements OnInit {
  showDashboard() {
     this.loginService.login(this.formGroup.value).subscribe({
       next: (response) => {
-        console.log('Login successful:', response.token);
-
-        // Exemplo de salvamento após o sucesso do login
-         localStorage.setItem('token', response.token);
 
         // Navega para o dashboard após o sucesso no login
         this.router.navigate(['/dashboard']);

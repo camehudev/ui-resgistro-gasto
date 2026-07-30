@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // 1. Inicializa o observável de autenticação
     this.isLoggedIn$ = this.authService.isAuthenticated$;
 
-    // 2. Valida a sessão ativa ao carregar a aplicação (no início, e não na destruição)
+    // // 2. Valida a sessão ativa ao carregar a aplicação (no início, e não na destruição)
     this.authService.checkSession().subscribe();
 
     // 3. Inscreve-se no serviço de loading

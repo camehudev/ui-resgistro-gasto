@@ -6,9 +6,16 @@ import { Observable, BehaviorSubject, tap, catchError, of, map } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  isLoggedIn() {
+    throw new Error('Method not implemented.');
+  }
   private http = inject(HttpClient);
   private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host';
+  private apiUrl2 = 'https://local';
 
+  // Mantemos o BehaviorSubject.
+  // Dica de Arquiteto: Se quisermos evitar que o menu suma no F5,
+  // podemos assumir um estado inicial ou tratar o carregamento.
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
@@ -32,21 +39,18 @@ export class AuthService {
     );
   }
 
- /**
-   * Consulta o endpoint no back-end para validar se a sessão do cookie HttpOnly ainda está ativa.
-   * Tipado explicitamente como Observable<boolean> para satisfazer o TypeScript.
-   */
   checkSession(): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/auth/check-session`, {
-      withCredentials: true
+    return this.http.get(`${this.apiUrl}/auth/check-session`, {
+      withCredentials: true,
+      responseType: 'text' as 'json'
     }).pipe(
       tap(() => {
         this.isAuthenticatedSubject.next(true);
       }),
-      map(() => true), // Garante que o fluxo bem-sucedido emita explicitamente true
+      map(() => true),
       catchError(() => {
         this.isAuthenticatedSubject.next(false);
-        return of(false); // Retorna um Observable<boolean> contendo false
+        return of(false);
       })
     );
   }

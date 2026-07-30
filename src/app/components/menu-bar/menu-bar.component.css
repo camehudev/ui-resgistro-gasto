@@ -1,0 +1,7 @@
+.p-overlaypanel .p-overlaypanel-content {
+    padding: 1rem;
+    border: none;
+    height: auto;
+    width: 200px;
+    cursor: pointer;
+}
