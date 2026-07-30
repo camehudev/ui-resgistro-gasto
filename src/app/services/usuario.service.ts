@@ -15,7 +15,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.baseURL, { withCredentials: true });
+    return this.http.get<Usuario[]>(`${this.baseURL}`, { withCredentials: true });
   }
 
   salvar(usuario: Usuario): Observable<Usuario> {
