@@ -1,48 +1,66 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap, catchError, of, map } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.production';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn() {
-    throw new Error('Method not implemented.');
-  }
   private http = inject(HttpClient);
-  private apiUrl = 'https://pessoal-proj-java-registro.sjj3wv.easypanel.host';
-  private apiUrl2 = 'http://localhost:5000';
-   private readonly baseUrl = `${environment.apiUrl}`;
+  private platformId = inject(PLATFORM_ID);
+  private readonly baseUrl = `${environment.apiUrl}`;
+  private readonly TOKEN_KEY = 'token';
 
-  // Mantemos o BehaviorSubject.
-  // Dica de Arquiteto: Se quisermos evitar que o menu suma no F5,
-  // podemos assumir um estado inicial ou tratar o carregamento.
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasTokenInSession());
   public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
+  private hasTokenInSession(): boolean {
+    // Garante que só executa o sessionStorage se estiver rodando no navegador (Browser)
+    if (isPlatformBrowser(this.platformId)) {
+      return !!sessionStorage.getItem(this.TOKEN_KEY);
+    }
+    return false; // No servidor, assume inicialmente como falso
+  }
+
+  isLoggedIn(): boolean {
+    return this.hasTokenInSession();
+  }
+
   login(credentials: { email: string; senha: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/login`, credentials, {
+    return this.http.post<any>(`${this.baseUrl}/auth/login`, credentials, {
       withCredentials: true
     }).pipe(
-      tap(() => {
+      tap((response) => {
+        if (response && response.token && isPlatformBrowser(this.platformId)) {
+          sessionStorage.setItem(this.TOKEN_KEY, response.token);
+        }
         this.isAuthenticatedSubject.next(true);
       })
     );
   }
 
   logout(): Observable<any> {
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem(this.TOKEN_KEY);
+    }
+    this.isAuthenticatedSubject.next(false);
+
     return this.http.post(`${this.baseUrl}/auth/logout`, {}, {
       withCredentials: true
     }).pipe(
-      tap(() => {
-        this.isAuthenticatedSubject.next(false);
-      })
+      catchError(() => of(true))
     );
   }
 
   checkSession(): Observable<boolean> {
-    return this.http.get(`${this.apiUrl}/auth/check-session`, {
+    if (!this.hasTokenInSession()) {
+      this.isAuthenticatedSubject.next(false);
+      return of(false);
+    }
+
+    return this.http.get(`${this.baseUrl}/auth/check-session`, {
       withCredentials: true,
       responseType: 'text' as 'json'
     }).pipe(
@@ -51,6 +69,9 @@ export class AuthService {
       }),
       map(() => true),
       catchError(() => {
+        if (isPlatformBrowser(this.platformId)) {
+          sessionStorage.removeItem(this.TOKEN_KEY);
+        }
         this.isAuthenticatedSubject.next(false);
         return of(false);
       })

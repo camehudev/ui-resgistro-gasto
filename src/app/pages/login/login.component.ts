@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
  showDashboard() {
     this.loginService.login(this.formGroup.value).subscribe({
       next: (response) => {
+        console.log('RESP LOGIN : ', response)
 
         // Navega para o dashboard após o sucesso no login
         this.router.navigate(['/dashboard']);

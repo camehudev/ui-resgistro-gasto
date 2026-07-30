@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gasto } from '../models/gasto.model';
 import { CategoriaSomaDTO } from '../interfaces/categoria-soma.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.production';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class GastoService {
   }
 
   resumoGastos(): Observable<any> {
+    console.log('URL => ', this.baseUrl)
     return this.http.get<any>(`${this.baseUrl}/gastos/resumo`);
   }
 }

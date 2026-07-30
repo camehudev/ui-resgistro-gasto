@@ -14,6 +14,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { DividerModule } from 'primeng/divider';
+import { Observable } from 'rxjs';
 
 export interface OverlayItem {
   name: string;
@@ -43,7 +44,7 @@ export interface OverlayItem {
 
 export class MenuBarComponent implements OnInit {
    private authService = inject(AuthService);
-   logado = this.authService.isAuthenticated$; // Substitua pelo seu Observable de autenticação
+   isLogado$!: Observable<boolean>;
    visibleMenu:boolean = false; // Inicialmente o menu não é visível
 
    itemsOverlay: any[] = [
@@ -118,6 +119,7 @@ export class MenuBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     this.isLogado$ = this.authService.isAuthenticated$;
 
 
   }
