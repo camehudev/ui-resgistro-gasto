@@ -1,5 +1,5 @@
-
-  <div >
+@if (isLogado$ | async) {
+  <!-- <div class="flexheader_menu" >
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
             <img src="../../../assets/logo.png" class="back_logo"/>
@@ -61,4 +61,5 @@
       </div>
   </div>
 </div>
+}
 
