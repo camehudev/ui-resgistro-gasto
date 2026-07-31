@@ -11,12 +11,14 @@ import { Gasto } from '../../models/gasto.model';
 
 import { TableModule } from 'primeng/table';
 import { CategoriaSomaDTO } from '../../interfaces/categoria-soma.model';
+import { CardsResumoComponent } from '../../components/cards-resumo/cards-resumo.component';
+import { FiltrosComponent } from '../../components/filtros/filtros.component';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule, CardsResumoComponent,FiltrosComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

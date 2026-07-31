@@ -5,3 +5,34 @@
     width: 200px;
     cursor: pointer;
 }
+.p-button .p-button-icon-only .p-button-rounded {
+    border-radius: 50%;
+    height: 1rem;
+    width: .5rem;
+    margin-right: 1rem;
+}
+.back_logo{
+  width: 450px;
+  background-image: url('../../../assets/logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-left: 1rem;
+}
+
+.menu{
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+  padding-right: 1rem;
+
+}
+
+.back_logo {
+  /* Garante que a imagem nunca seja maior que o seu arquivo original, mas encolha se a tela for menor */
+  max-width: 100%;
+  height: auto;
+
+  /* Exemplo de controle de tamanho máximo ideal para logos em cabeçalhos (ajuste conforme necessário) */
+  width: 580px;
+}

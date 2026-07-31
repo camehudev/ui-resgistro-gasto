@@ -1,0 +1,5 @@
+.container-cards-resumo{
+  display: flex;
+  flex-wrap: wrap;
+
+}
