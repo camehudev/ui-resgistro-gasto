@@ -13,12 +13,15 @@ import { TableModule } from 'primeng/table';
 import { CategoriaSomaDTO } from '../../interfaces/categoria-soma.model';
 import { CardsResumoComponent } from '../../components/cards-resumo/cards-resumo.component';
 import { FiltrosComponent } from '../../components/filtros/filtros.component';
+import { ChartComboDemo } from "../../components/charts/barra/barra.component";
+import { TableGastosComponent } from '../../components/table-gastos/table-gastos.component';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule, CardsResumoComponent,FiltrosComponent],
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule, CardsResumoComponent, FiltrosComponent,
+    ChartComboDemo, TableGastosComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -26,42 +29,12 @@ export class DashboardComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  resumo: any = [];
-  gastosRegistrados: Gasto[] = [];
-
-
   constructor(private gastoService: GastoService) {}
 
+ngOnInit(): void {
 
-  listarGastos(){
-    this.gastoService.listarTodos().subscribe({
-      next: (dados) => {
-        this.gastosRegistrados = dados;
+}
 
-      },
-      error: (erro) => {
-        console.error('Erro ao buscar gastos:', erro);
-      }
-    });
-  }
-
-    listResumo(){
-     this.gastoService.resumoGastos().subscribe({
-
-      next: (dados) => {
-        this.resumo = dados;
-      },
-      error: (erro) => {
-        console.error('Erro ao buscar gastos:', erro);
-      }
-    });
-
-  }
-
-    ngOnInit() {
-        this.listarGastos();
-        this.listResumo();
-    }
 
 
 

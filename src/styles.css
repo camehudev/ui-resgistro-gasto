@@ -33,7 +33,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 340px;
+  min-width: 320px;
   padding: 1rem;
   margin: .6rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -70,7 +70,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 290px;
+    max-width: 250px;
     padding: 1.5rem;
     margin-left: 2.3rem;
     margin-right: 2.3rem;
@@ -90,7 +90,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 340px;
+    min-width: 250px;
     padding: 1.5rem;
     margin: .6rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

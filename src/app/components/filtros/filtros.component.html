@@ -1,5 +1,5 @@
-<div class="container-filtros mb-5 p-3">
 
+<div class="container-filtros mb-5 p-2">
   <div class="flex flex-wrap">
      <div class="m-2">
         <label for="icondisplay" class="font-bold block mb-2 mr-2">Inicio</label>
@@ -36,6 +36,10 @@
             [(ngModel)]="selectedStatus"
             optionLabel="name"
             placeholder="Select o grupo" />
+      </div>
+
+      <div class="mt-5">
+        <p-button icon="pi pi-search" size="small" [rounded]="true" severity="primary" [outlined]="true" />
       </div>
 
   </div>

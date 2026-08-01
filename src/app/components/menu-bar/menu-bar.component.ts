@@ -15,6 +15,9 @@ import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { DividerModule } from 'primeng/divider';
 import { Observable } from 'rxjs';
+import e from 'express';
+
+import { DialogModule } from 'primeng/dialog';
 
 export interface OverlayItem {
   name: string;
@@ -37,15 +40,17 @@ export interface OverlayItem {
     OverlayPanelModule,
     ButtonModule,
     ListboxModule,
-    RouterModule],
+    RouterModule,
+     DialogModule],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css'
 })
 
 export class MenuBarComponent implements OnInit {
    private authService = inject(AuthService);
-   isLogado$!: Observable<boolean>;
+   isLogado$!: boolean;
    visibleMenu:boolean = false; // Inicialmente o menu não é visível
+   visibleLogout: boolean = false; // Inicialmente o perfil não é visível
 
    itemsOverlay: any[] = [
     { name: 'Perfil', icon: 'pi pi-user' },
@@ -106,8 +111,18 @@ export class MenuBarComponent implements OnInit {
         }
       ]
     },
+    {
+      label: 'Sair',
+      icon: 'pi pi-sign-out',
+      command: () => this.showDialogLogout() // Chama a função para mostrar o diálogo de logout
+    }
 
   ];
+
+showDialogLogout() {
+    this.visibleLogout = true; // Mostra o diálogo de logout
+  }
+
 
 
   fazerLogout() {
@@ -119,7 +134,7 @@ export class MenuBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.isLogado$ = this.authService.isAuthenticated$;
+     this.isLogado$ = this.authService.isLoggedIn();
 
 
   }

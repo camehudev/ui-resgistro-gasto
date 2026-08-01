@@ -1,4 +1,4 @@
-@if (isLogado$ | async) {
+@if (isLogado$) {
   <!-- <div class="flexheader_menu" >
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
@@ -33,15 +33,15 @@
 
 </div> -->
 
-<div class="flex" style="background-color: rgb(254, 254, 254); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+<div visible="isLogado$" class="flex" style="background-color: rgb(254, 254, 254); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
   <div class="flex align-items-center justify-content-center md:justify-content-start pt-2 px-3">
     <img src="../../../assets/logo.png" class="back_logo" alt="Logo do Sistema"/>
   </div>
   <div class="menu">
      <p-menubar [model]="items" [style]="{'border': 'none'}" />
      <div class="flex">
-          <p-button (onClick)="op.toggle($event)" icon="pi pi-user" [rounded]="true" size="small"  />
-          <p-overlayPanel class="p-overlaypanel p-overlaypanel-content" #op>
+
+          <p-overlayPanel class="p-overlaypanel p-overlaypanel-content" >
                 <div class="flex flex-column" >
                   <span style="cursor: pointer;">
                       <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
@@ -61,5 +61,22 @@
       </div>
   </div>
 </div>
-}
+
+<p-dialog
+    header=""
+    [(visible)]="visibleLogout"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false">
+        <p class=" text-lg font-bold">
+            Tem certeza que deseja sair?
+        </p>
+        <footer class="flex justify-content-center mt-4">
+            <button pButton type="button" label="Cancelar" size="small" class="p-button-text" severity="secondary" (click)="visibleLogout = false"></button>
+            <button pButton type="button" label="Sair" size="small" class="p-button-text" severity="primary" (click)="fazerLogout()"></button>
+        </footer>
+</p-dialog>
+  }
 

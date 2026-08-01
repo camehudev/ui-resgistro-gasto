@@ -1,0 +1,8 @@
+.container{
+  display: flex;
+  width: 90dvw;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-top: 1.5rem;
+}
+
