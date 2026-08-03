@@ -1,4 +1,4 @@
-<div class="card" style="margin-top: 2rem; padding: 1rem;">
+<!-- <div class="card" style="margin-top: 2rem; padding: 1rem;">
     <p-table
     [value]="gastosRegistrados"
     [tableStyle]="{ 'width': '90dvw' }"
@@ -24,4 +24,51 @@
             </tr>
         </ng-template>
     </p-table>
+</div> -->
+
+
+<div class="flex justify-content-center m-4 w-screen ">
+  <div class="flex flex-column justify-content-center bg-white p-3 shadow-2 border-round w-11">
+    <h4 class="ml-2">Gastos Registrados</h4>
+    <p-table
+    [value]="gastosRegistrados"
+    [paginator]="true"
+    responsiveLayout="stack"
+    [breakpoint]="'960px'"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    >
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Codigo</th>
+            <th>categoria</th>
+            <th>Descrição
+            <th>Valor</th>
+            <th>Data</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-columns="columns">
+        <tr class="p-2">
+            <td>
+                {{product.id}}
+            </td>
+            <td>
+                {{product.categoria}}
+            </td>
+            <td>
+                {{product.descricao}}
+            </td>
+            <td>
+                {{product.valor | currency:'BRL'}}
+            </td>
+            <td>
+                {{product.data | date:'dd/MM/yyyy'}}
+            </td>
+
+        </tr>
+    </ng-template>
+</p-table>
+
+  </div>
 </div>

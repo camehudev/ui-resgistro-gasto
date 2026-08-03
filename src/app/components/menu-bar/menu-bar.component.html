@@ -67,12 +67,12 @@
     [(visible)]="visibleLogout"
     [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }"
+    [style]="{ width: '30vw' }"
     [draggable]="false"
     [resizable]="false">
-        <p class=" text-lg font-bold">
+        <span class=" text-lg font-bold">
             Tem certeza que deseja sair?
-        </p>
+        </span>
         <footer class="flex justify-content-center mt-4">
             <button pButton type="button" label="Cancelar" size="small" class="p-button-text" severity="secondary" (click)="visibleLogout = false"></button>
             <button pButton type="button" label="Sair" size="small" class="p-button-text" severity="primary" (click)="fazerLogout()"></button>
