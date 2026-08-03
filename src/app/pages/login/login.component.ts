@@ -1,49 +1,47 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Importação essencial
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [DividerModule, ButtonModule, InputTextModule, ReactiveFormsModule,],
+  imports: [DividerModule, ButtonModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private router: Router, private loginService: AuthService) {}
-   private authService = inject(AuthService);
+  // Utilizando injeção moderna via inject() de forma padronizada
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
   formGroup!: FormGroup;
-  isLogado$!: boolean;
 
- showDashboard() {
-    this.loginService.login(this.formGroup.value).subscribe({
-      next: (response) => {
-        console.log('RESP LOGIN : ', response)
-
-        // Navega para o dashboard após o sucesso no login
-        this.router.navigate(['/dashboard']);
-        this.isLogado$ = this.authService.isLoggedIn();
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-        // Trate o erro aqui (ex: exibir mensagem amigável para o usuário)
-      }
+  ngOnInit() {
+    this.formGroup = new FormGroup({
+      email: new FormControl<string | null>(null),
+      senha: new FormControl<string | null>(null)
     });
   }
 
-  ngOnInit() {
-        this.formGroup = new FormGroup({
-            email: new FormControl<string | null>(null),
-            senha: new FormControl<string | null>(null)
-        });
-    }
+  showDashboard() {
+    if (this.formGroup.invalid) return;
 
+    this.authService.login(this.formGroup.value).subscribe({
+      next: (response) => {
+        console.log('RESP LOGIN : ', response);
+
+        // O AuthService já atualiza o Signal 'isAuthenticated' internamente no pipe(tap(...))
+        // Agora basta redirecionar o usuário para o dashboard com segurança
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        // Aqui você pode adicionar uma tratativa de erro amigável para o usuário (ex: Toast do PrimeNG)
+      }
+    });
+  }
 }

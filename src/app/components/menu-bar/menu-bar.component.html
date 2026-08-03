@@ -1,92 +1,6 @@
-@if (isLogado$) {
-  <!-- <div class="flexheader_menu" >
-    <p-menubar [model]="items">
-        <ng-template pTemplate="start">
-            <img src="../../../assets/logo.png" class="back_logo"/>
-        </ng-template>
 
-
-
-        <ng-template pTemplate="end">
-            <div class="flex">
-                <p-button (onClick)="op.toggle($event)" icon="pi pi-user" [rounded]="true" size="small" />
-                <p-overlayPanel class="p-overlaypanel p-overlaypanel-content" #op>
-                     <div class="flex flex-column" >
-                        <span style="cursor: pointer;">
-                           <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
-                          &nbsp;Perfil</span>
-                        <p-divider type="solid" />
-                        <span style="cursor: pointer;">
-                          <i class="pi pi-cog" style="color: rgb(144, 143, 143)"></i>
-                          &nbsp; Configurações</span>
-                        <p-divider type="solid" class="mb-3" />
-                        <span (click)="fazerLogout()" style="cursor: pointer;">
-                          <i class="pi pi-sign-out" style="color: rgb(144, 143, 143)"></i>
-                          &nbsp;Sair
-                        </span>
-                      </div>
-
-                </p-overlayPanel>
-            </div>
-        </ng-template>
-    </p-menubar>
-
-</div> -->
-
-
-<!-- <div visible="isLogado$" class="flex" style="background-color: rgb(254, 254, 254); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
-  <div class="flex align-items-center justify-content-center md:justify-content-start pt-2 px-3">
-    <img src="../../../assets/logo.png" class="back_logo" alt="Logo do Sistema"/>
-  </div>
-
-  <div>
-    <div class="card">   <p-menubar [model]="items" /> </div>
-     <p-button icon="pi pi-user" (onClick)="op.toggle($event)" [rounded]="true" [text]="true" severity="secondary"/>
-     <div class="flex bg-primary">
-          <p-overlayPanel #op>
-                <div class="flex flex-column" >
-                  <span style="cursor: pointer;">
-                      <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
-                    &nbsp;Perfil</span>
-                  <p-divider type="solid" />
-                  <span style="cursor: pointer;">
-                    <i class="pi pi-cog" style="color: rgb(144, 143, 143)"></i>
-                    &nbsp; Configurações</span>
-                  <p-divider type="solid" class="mb-3" />
-                  <span (click)="showDialogLogout()" style="cursor: pointer;">
-                    <i class="pi pi-sign-out" style="color: rgb(144, 143, 143)"></i>
-                    &nbsp;Sair
-                  </span>
-                </div>
-
-          </p-overlayPanel>
-      </div>
-  </div>
-</div> -->
-
-
-
-<p-dialog
-    header=""
-    [(visible)]="visibleLogout"
-    [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '30vw' }"
-    [draggable]="false"
-    [resizable]="false">
-        <span class=" text-lg font-bold">
-            Tem certeza que deseja sair?
-        </span>
-        <footer class="flex justify-content-center mt-4">
-            <button pButton type="button" label="Cancelar" size="small" class="p-button-text" severity="secondary" (click)="visibleLogout = false"></button>
-            <button pButton type="button" label="Sair" size="small" class="p-button-text" severity="primary" (click)="fazerLogout()"></button>
-        </footer>
-</p-dialog>
-  }
-
-
-<div class="shadow-3 fixed z-5 w-full" visible="isLogado$" >
-    <p-menubar [model]="items">
+  <div *ngIf="isLogado" class="shadow-3 fixed z-5 w-full" visible="isLogado$" >
+    <p-menubar [model]="items()">
         <ng-template pTemplate="start" class="col-10">
          <div class="flex align-items-center">
             <img src="../../../assets/logo.png" class="w-full md:w-10rem lg:w-20rem h-auto" alt="Logo do Sistema"/>
@@ -126,4 +40,23 @@
         </ng-template>
     </p-menubar>
 </div>
+
+
+
+<p-dialog
+    header=""
+    [(visible)]="visibleLogout"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '30vw' }"
+    [draggable]="false"
+    [resizable]="false">
+        <span class=" text-lg font-bold">
+            Tem certeza que deseja sair?
+        </span>
+        <footer class="flex justify-content-center mt-4">
+            <button pButton type="button" label="Cancelar" size="small" class="p-button-text" severity="secondary" (click)="visibleLogout = false"></button>
+            <button pButton type="button" label="Sair" size="small" class="p-button-text" severity="primary" (click)="fazerLogout()"></button>
+        </footer>
+</p-dialog>
 

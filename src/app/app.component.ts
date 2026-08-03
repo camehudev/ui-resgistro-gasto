@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loadingService';
 import { CommonModule } from '@angular/common';
@@ -14,28 +14,29 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  // Exponde diretamente o observable do serviço
   isLoading$!: Observable<boolean>;
-  isLoggedIn$!: Observable<boolean>;
+
+
 
   private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
-
   private loadingService = inject(LoadingService);
   private authService = inject(AuthService);
+
+   // Declaramos o tipo do signal ou deixamos a inferência do TypeScript agir
+  isLoggedIn = this.authService.isAuthenticated;
+
 
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      // Se houver lógica baseada em rota que altera o estado do componente raiz,
-      // envolva em setTimeout ou force a detecção de forma segura se necessário.
+      // Lógica de navegação se necessário
     });
 
-    this.isLoggedIn$ = this.authService.isAuthenticated$;
+    // Verifica a sessão ao inicializar a aplicação
     this.authService.checkSession().subscribe();
 
-    // Atribui o observable diretamente, sem .subscribe() manual
+    // Atribui o observable do loading
     this.isLoading$ = this.loadingService.loading$;
   }
 }

@@ -1,7 +1,7 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, tap, catchError, of, map } from 'rxjs';
+import { Observable, tap, catchError, of, map } from 'rxjs';
 import { environment } from '../../environments/environment.production';
 
 @Injectable({
@@ -13,15 +13,14 @@ export class AuthService {
   private readonly baseUrl = `${environment.apiUrl}`;
   private readonly TOKEN_KEY = 'token';
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasTokenInSession());
-  public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  // Migrado de BehaviorSubject para Angular Signal para total alinhamento moderno
+  public isAuthenticated = signal<boolean>(this.hasTokenInSession());
 
   private hasTokenInSession(): boolean {
-    // Garante que só executa o sessionStorage se estiver rodando no navegador (Browser)
     if (isPlatformBrowser(this.platformId)) {
       return !!sessionStorage.getItem(this.TOKEN_KEY);
     }
-    return false; // No servidor, assume inicialmente como falso
+    return false;
   }
 
   isLoggedIn(): boolean {
@@ -36,7 +35,7 @@ export class AuthService {
         if (response && response.token && isPlatformBrowser(this.platformId)) {
           sessionStorage.setItem(this.TOKEN_KEY, response.token);
         }
-        this.isAuthenticatedSubject.next(true);
+        this.isAuthenticated.set(true);
       })
     );
   }
@@ -45,7 +44,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem(this.TOKEN_KEY);
     }
-    this.isAuthenticatedSubject.next(false);
+    this.isAuthenticated.set(false);
 
     return this.http.post(`${this.baseUrl}/auth/logout`, {}, {
       withCredentials: true
@@ -56,7 +55,7 @@ export class AuthService {
 
   checkSession(): Observable<boolean> {
     if (!this.hasTokenInSession()) {
-      this.isAuthenticatedSubject.next(false);
+      this.isAuthenticated.set(false);
       return of(false);
     }
 
@@ -65,14 +64,14 @@ export class AuthService {
       responseType: 'text' as 'json'
     }).pipe(
       tap(() => {
-        this.isAuthenticatedSubject.next(true);
+        this.isAuthenticated.set(true);
       }),
       map(() => true),
       catchError(() => {
         if (isPlatformBrowser(this.platformId)) {
           sessionStorage.removeItem(this.TOKEN_KEY);
         }
-        this.isAuthenticatedSubject.next(false);
+        this.isAuthenticated.set(false);
         return of(false);
       })
     );

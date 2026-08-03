@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { PanelMenuModule } from 'primeng/panelmenu'; // Ou o módulo do PrimeNG que estiver usando para o menu
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 import { MenubarModule } from 'primeng/menubar';
@@ -14,21 +13,12 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { DividerModule } from 'primeng/divider';
-import { Observable } from 'rxjs';
-import e from 'express';
-
 import { DialogModule } from 'primeng/dialog';
-
-export interface OverlayItem {
-  name: string;
-  route?: string;
-  // outras propriedades se houver
-}
 
 @Component({
   selector: 'app-menu-bar',
   standalone: true,
-   imports: [
+  imports: [
     DividerModule,
     MenubarModule,
     BadgeModule,
@@ -41,97 +31,89 @@ export interface OverlayItem {
     ButtonModule,
     ListboxModule,
     RouterModule,
-     DialogModule],
+    DialogModule
+  ],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css'
 })
+export class MenuBarComponent {
+  private authService = inject(AuthService);
 
-export class MenuBarComponent implements OnInit {
-   private authService = inject(AuthService);
-   isLogado$!: boolean;
-   visibleMenu:boolean = false; // Inicialmente o menu não é visível
-   visibleLogout: boolean = false; // Inicialmente o perfil não é visível
+  constructor(private router:Router){
 
-   itemsOverlay: any[] = [
+  }
+
+  visibleMenu: boolean = false;
+  visibleLogout: boolean = false;
+
+  itemsOverlay: any[] = [
     { name: 'Perfil', icon: 'pi pi-user' },
     { name: 'Configurações', icon: 'pi pi-cog' },
     { name: 'Sair', icon: 'pi pi-sign-out', command: () => this.fazerLogout() }
   ];
 
+  // Computed Signal para reatividade instantânea no menu com base na autenticação
+  items = computed<MenuItem[]>(() => {
+    const logado = this.authService.isAuthenticated();
 
-// Tipagem forte com MenuItem[]
-  items: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'pi pi-home',
-      routerLink: ['/dashboard'] // Dica: Adicionei o routerLink para a Home se desejar navegação
-    },
-    {
-      label: 'Usuarios',
-      icon: 'pi pi-users',
-      routerLink: ['/usuarios']
-    },
-    {
-      label: 'Relatorios',
-      icon: 'pi pi-search',
-      items: [
+    const menuItems: MenuItem[] = [
+      {
+        label: 'Home',
+        icon: 'pi pi-home',
+        command: () => this.showPageDashboard(),
+      }
+    ];
+
+
+    if (logado) {
+      menuItems.push(
         {
-          label: 'Core',
-          icon: 'pi pi-bolt',
-
+          label: 'Usuarios',
+          icon: 'pi pi-users',
+          command: () => this.showPagesUser()
         },
         {
-          label: 'Blocks',
-          icon: 'pi pi-server',
-
-        },
-        {
-          label: 'UI Kit',
-          icon: 'pi pi-pencil',
-
-        },
-        {
-          separator: true
-        },
-        {
-          label: 'Templates',
-          icon: 'pi pi-palette',
+          label: 'Relatorios',
+          icon: 'pi pi-search',
+          routerLink: ['/relatorios'], // Boa prática: definir rota pai se aplicável
           items: [
-            {
-              label: 'Apollo',
-              icon: 'pi pi-palette',
-              badge: '2'
-            },
-            {
-              label: 'Ultima',
-              icon: 'pi pi-palette',
-
-            }
+            { label: 'Core', icon: 'pi pi-bolt', routerLink: ['/relatorios/core'] },
+            { label: 'Blocks', icon: 'pi pi-server', routerLink: ['/relatorios/blocks'] },
+            { label: 'UI Kit', icon: 'pi pi-pencil', routerLink: ['/relatorios/uikit'] }
           ]
         }
-      ]
-    },
+      );
+    }
 
-  ];
+    return menuItems;
+  });
 
-showDialogLogout() {
-    this.visibleLogout = true; // Mostra o diálogo de logout
+   showPagesUser(){
+    this.router.navigate(['/usuarios']);
+   }
+
+   showPagesRelatorios(){
+    this.router.navigate(['/relatorios']);
+   }
+
+   showPageDashboard(){
+    this.router.navigate(['/dashboard']);
+   }
+
+  // Getter reativo para expor o estado de login no HTML
+  get isLogado(): boolean {
+    return this.authService.isAuthenticated();
   }
 
-
+  showDialogLogout() {
+    this.visibleLogout = true;
+  }
 
   fazerLogout() {
     this.authService.logout().subscribe({
       next: () => window.location.href = '/login',
       error: () => window.location.href = '/login'
     });
-    this.visibleMenu = false; // Oculta o menu após o logout
+    this.visibleMenu = false;
   }
-
-  ngOnInit(): void {
-     this.isLogado$ = this.authService.isLoggedIn();
-
-
-  }
-
 }
