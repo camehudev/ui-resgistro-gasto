@@ -1,4 +1,4 @@
-  <div class="flex align-items-center justify-content-center ">
+  <!-- <div class="flex align-items-center justify-content-center ">
     <div style="width: 40%; height: 100vh;">
       <form [formGroup]="formGroup">
         <div class="flex align-items-center justify-content-center h-screen ">
@@ -23,4 +23,28 @@
     </div>
 
   </div>
+ -->
+<div class="flex justify-content-center align-items-center container-login">
+  <div class="flex flex-column w-full lg:w-3 h-23rem  surface-card p-5 m-3 shadow-2 border-round">
+    <form [formGroup]="formGroup">
+      <h2 class="text-center mb-5">Login</h2>
+      <div class=" field">
+      <label for="firstname1">Email</label>
+      <input id="firstname1" type="text" formControlName="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+      </div>
+      <div class="field">
+      <label for="lastname1">Senha</label>
+      <input id="lastname1" type="password" formControlName="senha" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+      </div>
+
+      <footer>
+      <div class="mt-3"><p-button label="Entrar" icon="pi pi-user" (click)="showDashboard()" styleClass="w-full"></p-button></div>
+
+      </footer>
+    </form>
+  </div>
+</div>
+
+
+
 
