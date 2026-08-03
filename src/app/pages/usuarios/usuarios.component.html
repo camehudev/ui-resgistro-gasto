@@ -40,6 +40,7 @@
 
 <div class="card flex justify-content-center">
   <p-dialog header="Cadastrar Usuário" [modal]="true" [(visible)]="dialogUserVisible" [style]="{ width: '25rem' }">
+
      <!-- Formulário -->
   <form [formGroup]="usuarioForm" (ngSubmit)="salvar()" class="card p-3 mb-4 shadow-sm">
     <div class="flex flex-column mb-3">

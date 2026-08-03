@@ -5,11 +5,14 @@ import { CommonModule } from '@angular/common';
 import { filter, Observable } from 'rxjs';
 import { MenuBarComponent } from "./components/menu-bar/menu-bar.component";
 import { AuthService } from './services/auth.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MenuBarComponent],
+  imports: [RouterOutlet, CommonModule, MenuBarComponent,ToastModule],
+  providers:[MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

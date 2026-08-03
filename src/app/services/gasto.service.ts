@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gasto } from '../models/gasto.model';
 import { CategoriaSomaDTO } from '../interfaces/categoria-soma.model';
-import { environment } from '../../environments/environment.production'; // Ajuste conforme o padrão do seu angular.json para environments
+import { environment } from '../../environments/environment.development'; // Ajuste conforme o padrão do seu angular.json para environments
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +21,10 @@ export class GastoService {
   resumoGastos(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/resumo`, { withCredentials: true });
   }
+
+  criarGasto(gasto: any): Observable<Gasto> {
+    return this.http.post<any>(`${this.baseUrl}`, gasto, {
+      withCredentials: true // Mantém o suporte a cookies/sessão se a sua API exigir
+    });
+}
 }

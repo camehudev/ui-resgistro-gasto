@@ -7,6 +7,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor'; // Ajuste o caminho conforme o seu projeto
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding() // Opcional: facilita a passagem de parâmetros de rotas como @Input()
     ),
     provideClientHydration(),
+    MessageService,
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),

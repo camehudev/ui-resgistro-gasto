@@ -4,5 +4,4 @@ export interface Gasto {
   valor: string;
   descricao: string;
   data_gasto: string;
-  data_criacao?: string;
 }

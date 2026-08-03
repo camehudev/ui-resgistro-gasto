@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.formGroup.value).subscribe({
       next: (response) => {
-        console.log('RESP LOGIN : ', response);
 
         // O AuthService já atualiza o Signal 'isAuthenticated' internamente no pipe(tap(...))
         // Agora basta redirecionar o usuário para o dashboard com segurança
