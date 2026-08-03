@@ -30,6 +30,21 @@
 
 }
 
+/* .container-cabecalho{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70px;
+  z-index: 9999;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+} */
+
+
+
 .back_logo {
   /* Garante que a imagem nunca seja maior que o seu arquivo original, mas encolha se a tela for menor */
   max-width: 100%;

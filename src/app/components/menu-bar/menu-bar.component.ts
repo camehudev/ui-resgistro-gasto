@@ -111,11 +111,6 @@ export class MenuBarComponent implements OnInit {
         }
       ]
     },
-    {
-      label: 'Sair',
-      icon: 'pi pi-sign-out',
-      command: () => this.showDialogLogout() // Chama a função para mostrar o diálogo de logout
-    }
 
   ];
 

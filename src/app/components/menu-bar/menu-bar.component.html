@@ -33,14 +33,17 @@
 
 </div> -->
 
-<div visible="isLogado$" class="flex" style="background-color: rgb(254, 254, 254); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+
+<!-- <div visible="isLogado$" class="flex" style="background-color: rgb(254, 254, 254); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
   <div class="flex align-items-center justify-content-center md:justify-content-start pt-2 px-3">
     <img src="../../../assets/logo.png" class="back_logo" alt="Logo do Sistema"/>
   </div>
-  <div class="menu mr-4">
-     <p-menubar [model]="items" [style]="{'border': 'none'}" />
+
+  <div>
+    <div class="card">   <p-menubar [model]="items" /> </div>
+     <p-button icon="pi pi-user" (onClick)="op.toggle($event)" [rounded]="true" [text]="true" severity="secondary"/>
      <div class="flex bg-primary">
-          <p-overlayPanel>
+          <p-overlayPanel #op>
                 <div class="flex flex-column" >
                   <span style="cursor: pointer;">
                       <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
@@ -50,7 +53,7 @@
                     <i class="pi pi-cog" style="color: rgb(144, 143, 143)"></i>
                     &nbsp; Configurações</span>
                   <p-divider type="solid" class="mb-3" />
-                  <span (click)="fazerLogout()" style="cursor: pointer;">
+                  <span (click)="showDialogLogout()" style="cursor: pointer;">
                     <i class="pi pi-sign-out" style="color: rgb(144, 143, 143)"></i>
                     &nbsp;Sair
                   </span>
@@ -59,7 +62,9 @@
           </p-overlayPanel>
       </div>
   </div>
-</div>
+</div> -->
+
+
 
 <p-dialog
     header=""
@@ -78,4 +83,47 @@
         </footer>
 </p-dialog>
   }
+
+
+<div class="shadow-3 fixed z-5 w-full" visible="isLogado$" >
+    <p-menubar [model]="items">
+        <ng-template pTemplate="start" class="col-10">
+         <div class="flex align-items-center">
+            <img src="../../../assets/logo.png" class="w-full md:w-10rem lg:w-20rem h-auto" alt="Logo do Sistema"/>
+        </div>
+        </ng-template>
+        <ng-template pTemplate="item" let-item let-root="root" style="margin-left: 1.5rem;">
+          <a pRipple class="flex align-items-center p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+            </a>
+
+        </ng-template>
+        <ng-template pTemplate="end">
+            <p-button icon="pi pi-user" (onClick)="op.toggle($event)" [rounded]="true" [text]="true" severity="secondary"/>
+              <div class="flex bg-primary">
+                    <p-overlayPanel #op>
+                          <div class="flex flex-column" >
+                            <span style="cursor: pointer;">
+                                <i class="pi pi-user" style="color: rgb(144, 143, 143)"></i>
+                              &nbsp;Perfil</span>
+                            <p-divider type="solid" />
+                            <span style="cursor: pointer;">
+                              <i class="pi pi-cog" style="color: rgb(144, 143, 143)"></i>
+                              &nbsp; Configurações</span>
+                            <p-divider type="solid" class="mb-3" />
+                            <span (click)="showDialogLogout()" style="cursor: pointer;">
+                              <i class="pi pi-sign-out" style="color: rgb(144, 143, 143)"></i>
+                              &nbsp;Sair
+                            </span>
+                          </div>
+
+                    </p-overlayPanel>
+                </div>
+        </ng-template>
+    </p-menubar>
+</div>
 
