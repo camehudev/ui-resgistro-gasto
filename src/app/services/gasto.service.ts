@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gasto } from '../models/gasto.model';
 import { CategoriaSomaDTO } from '../interfaces/categoria-soma.model';
-import { environment } from '../../environments/environment.development'; // Ajuste conforme o padrão do seu angular.json para environments
+import { environment } from '../../environments/environment.production'; // Ajuste conforme o padrão do seu angular.json para environments
 
 @Injectable({
   providedIn: 'root'
