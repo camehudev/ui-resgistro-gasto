@@ -1,31 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gasto } from '../models/gasto.model';
 import { CategoriaSomaDTO } from '../interfaces/categoria-soma.model';
-import { environment } from '../../environments/environment.development';
-
+import { environment } from '../../environments/environment.production'; // Ajuste conforme o padrão do seu angular.json para environments
 
 @Injectable({
   providedIn: 'root'
 })
 export class GastoService {
-  // Ajuste a URL base conforme a porta e rota do seu Spring Boot
-  //private apiUrl = 'http://localhost:5000/gastos';
-  // Pega a URL dinamicamente do environment configurado
-  private readonly baseUrl = `${environment.apiUrl}`;
+  private http = inject(HttpClient);
 
-
-
-  constructor(private http: HttpClient) {}
+  // A baseUrl já deve conter a raiz da API (ex: https://seu-backend.onrender.com ou http://localhost:5000)
+  private readonly baseUrl = `${environment.apiUrl}/gastos`;
 
   listarTodos(): Observable<Gasto[]> {
-      console.log('(1=> ', this.baseUrl)
-    return this.http.get<Gasto[]>(`${this.baseUrl}/gastos`);
+    return this.http.get<Gasto[]>(this.baseUrl, { withCredentials: true });
   }
 
   resumoGastos(): Observable<any> {
-    console.log('2 => ', this.baseUrl)
-    return this.http.get<any>(`${this.baseUrl}/gastos/resumo`);
+    return this.http.get<any>(`${this.baseUrl}/resumo`, { withCredentials: true });
   }
 }

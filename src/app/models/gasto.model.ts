@@ -3,5 +3,6 @@ export interface Gasto {
   categoria: string;
   valor: string;
   descricao: string;
-  data: string;
+  data_gasto: string;
+  data_criacao?: string;
 }
