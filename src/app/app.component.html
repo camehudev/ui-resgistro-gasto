@@ -1,9 +1,8 @@
-<div class="app-layout">
-  <!-- Componente visual global do Toast do PrimeNG -->
-<p-toast />
+<!-- Toast posicionado no topo absoluto da raiz, fora de qualquer container restritivo -->
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
 
-  <!-- O uso do async pipe gerencia o ciclo reativo sem conflitos de change detection -->
-  <ng-container >
+<div class="app-layout">
+  <ng-container>
     <app-menu-bar></app-menu-bar>
   </ng-container>
 
@@ -12,7 +11,7 @@
   </main>
 </div>
 
-<!-- Spinner Global Overlay controlando pela propriedade limpa do componente -->
+<!-- Spinner Global Overlay -->
 @if (isLoading$ | async) {
   <div class="spinner-overlay">
     <div class="spinner"></div>

@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
 
-
   private router = inject(Router);
   private loadingService = inject(LoadingService);
   private authService = inject(AuthService);

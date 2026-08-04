@@ -17,7 +17,7 @@ export class MensagemService {
       severity: 'success',
       summary: 'Sucesso',
       detail: detalhes,
-      life: 1500 // Tempo em milissegundos que o toast fica visível
+      life: 2500 // Tempo em milissegundos que o toast fica visível
     });
   }
 
