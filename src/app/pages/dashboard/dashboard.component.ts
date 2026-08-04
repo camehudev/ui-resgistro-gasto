@@ -15,13 +15,14 @@ import { CardsResumoComponent } from '../../components/cards-resumo/cards-resumo
 import { FiltrosComponent } from '../../components/filtros/filtros.component';
 import { ChartComboDemo } from "../../components/charts/barra/barra.component";
 import { TableGastosComponent } from '../../components/table-gastos/table-gastos.component';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule, CardsResumoComponent, FiltrosComponent,
-    ChartComboDemo, TableGastosComponent],
+    ChartComboDemo, TableGastosComponent, ButtonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

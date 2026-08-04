@@ -3,7 +3,7 @@
     <p-menubar [model]="items()">
         <ng-template pTemplate="start" class="col-10">
          <div class="flex align-items-center">
-            <img src="../../../assets/logo.png" class="w-full md:w-10rem lg:w-20rem h-auto" alt="Logo do Sistema"/>
+            <img src="../../../assets/saldo_livre.png" class="w-full md:w-8rem lg:w-15rem h-auto" alt="Logo do Sistema"/>
         </div>
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root" style="margin-left: 1.5rem;">
@@ -17,7 +17,7 @@
 
         </ng-template>
         <ng-template pTemplate="end">
-            <p-button icon="pi pi-user" (onClick)="op.toggle($event)" [rounded]="true" [text]="true" severity="secondary"/>
+            <p-button class="pr-4" icon="pi pi-user" (onClick)="op.toggle($event)" [rounded]="true" [text]="true" severity="secondary"/>
               <div class="flex bg-primary">
                     <p-overlayPanel #op>
                           <div class="flex flex-column" >

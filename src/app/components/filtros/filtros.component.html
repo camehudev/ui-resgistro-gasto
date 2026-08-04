@@ -54,7 +54,6 @@
 </div>
 
 <div class="card flex justify-content-center">
-
     <p-dialog class="p-2" header="Registrar Novo Gasto" [modal]="true" [(visible)]="visibleDialog "
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
       [draggable]="false"
@@ -62,32 +61,64 @@
         <div class="flex justify-content-center">
           <form [formGroup]="formGroupGasto" class="p-fluid">
             <div class="field">
-                <div class="field">
-                    <label for="categoria">Categoria</label>
-                    <input class="w-full" id="categoria" type="text" formControlName="categoria" pInputText  />
+                <div class="field p-1">
+                  <label for="valor">Categoria</label>
+                      <p-dropdown
+                          [options]="categoriaSaldo"
+                          formControlName="categoria"
+                          optionLabel="name"
+                           />
                 </div>
                 <div class="field">
                     <label for="valor">Valor</label>
                     <input class="w-full" id="valor" type="text" formControlName="valor" pInputText />
                 </div>
 
+                <!-- Opção de Parcelamento -->
+                  <div class=" flex flex-wrap field-checkbox mt-3 mb-3 align-items-center gap-2">
+                      <p-checkbox
+                          (click)="checkdParcelado()"
+                          [binary]="true"
+                          inputId="parcelado">
+                      </p-checkbox>
+                      <label for="parcelado" class="cursor-pointer text-sm font-medium">Esta compra é parcelada?</label>
+                      <span>{{selectedParcelado}}</span>
+                  </div>
+
+                  <!-- Campos condicionais que aparecem se 'eh_parcelado' for true -->
+                    <div *ngIf="selectedParcelado" class="p-3 surface-ground border-round mb-3">
+                        <div class="grid formgrid">
+                            <div class="col-6">
+                                <label for="parcela_atual" class="text-xs">Total de parcelas</label>
+                                <!-- Ex: Parcela 2 -->
+                                <input pInputText id="parcela_atual" formControlName="total_parcelas" placeholder="Ex: 12" class="w-full" />
+                            </div>
+                            <div class="col-6">
+                                <label for="parcela_atual" class="text-xs">Parcela atual</label>
+                                <!-- Ex: Parcela 2 -->
+                                <input pInputText id="parcela_atual" formControlName="parcela_atual" placeholder="Ex: 2" class="w-full" />
+                            </div>
+                        </div>
+                        <small class="text-color-secondary block mt-2">O app vai registrar como <strong>Parcela 2/10</strong> e descontar o valor mensalmente.</small>
+                    </div>
+
                 <div class="field">
                     <label for="descrição">Descrição</label>
                     <textarea class="w-full" id="descrição" formControlName="descricao" pInputText></textarea>
                 </div>
 
-                <div class="fluid">
-                    <label for="data">Data</label>
-                    <p-calendar
-                      class="w-full"
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      inputId="icondisplay">
-formControlName="data_gasto"
-                      </p-calendar>
+               <div class="fluid">
+                  <label for="data">Data</label>
+                  <p-calendar
+                    formControlName="data_gasto"
+                    class="w-full"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                    [appendTo]="'body'"> <!-- Adicionado aqui -->
+                  </p-calendar>
                 </div>
             </div>
-
 
                 <div class="flex justify-content-center p-3 m-3 gap-2">
                     <p-button label="Salvar" [raised]="true" (click)="registraGasto()" />

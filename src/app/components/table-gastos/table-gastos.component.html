@@ -45,6 +45,8 @@
             <th>categoria</th>
             <th>Descrição
             <th>Valor</th>
+            <th>Parcela(Atual)</th>
+            <th>Parcela(Totais)</th>
             <th>Data</th>
         </tr>
     </ng-template>
@@ -61,6 +63,12 @@
             </td>
             <td>
                 {{product.valor | currency:'BRL'}}
+            </td>
+            <td>
+                {{product.parcela_atual? product.parcela_atual: 'N/A'}}
+            </td>
+            <td>
+                {{product.total_parcelas? product.total_parcelas: 'N/A'}}
             </td>
             <td>
                 {{product.data | date:'dd/MM/yyyy'}}

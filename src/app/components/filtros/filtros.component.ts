@@ -9,6 +9,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { GastoService } from '../../services/gasto.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 interface Grupo {
@@ -19,13 +22,22 @@ interface Grupo {
 @Component({
   selector: 'app-filtros',
   standalone: true,
-  imports: [CalendarModule, FormsModule, DropdownModule, DialogModule, ButtonModule, InputTextModule, ReactiveFormsModule,ToastModule ],
+  imports: [CalendarModule, FormsModule,
+    DropdownModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    ToastModule,
+    CheckboxModule,
+    CommonModule
+ ],
   templateUrl: './filtros.component.html',
   styleUrl: './filtros.component.css'
 })
 export class FiltrosComponent implements OnInit{
 
-  constructor(private gastoService: GastoService, private messageService: MessageService, ) {}
+  constructor(private gastoService: GastoService, private messageService: MessageService, private router:Router ) {}
 
     private fb = inject(FormBuilder);
     // private mensagemService = inject(MensagemService);
@@ -41,9 +53,16 @@ export class FiltrosComponent implements OnInit{
   status: Grupo[] | undefined;
 
   formGroupGasto!: FormGroup;
+  categoriaSaldo: any[]=[];
 
   selectedStatus: Grupo[] | undefined;
   visibleDialog: boolean = false;
+  selectedParcelado:boolean=false;
+
+  checkdParcelado(){
+    this.selectedParcelado= !this.selectedParcelado
+    console.log();
+  }
 
 
   showDialog(){
@@ -73,11 +92,15 @@ export class FiltrosComponent implements OnInit{
   }
 
   const dtoRegistro = {
-    categoria: this.formGroupGasto?.value.categoria,
+    categoria: this.formGroupGasto?.value.categoria?.name,
     valor: Number(this.formGroupGasto?.value.valor),
+    total_parcelas: this.formGroupGasto?.value.otal_parcelas,
+    parcela_atual: this.formGroupGasto?.value.parcela_atual,
     descricao: this.formGroupGasto?.value.descricao,
-    data_gasto: dataFormatada
+    data_gasto: dataFormatada,
   };
+
+  console.log(dtoRegistro)
 
   this.gastoService.criarGasto(dtoRegistro).subscribe({
     next: (response) => {
@@ -89,6 +112,7 @@ export class FiltrosComponent implements OnInit{
 
       this.visibleDialog = false; // Fecha o diálogo após o registro bem-sucedido
       this.formGroupGasto.reset(); // Limpa o formulário após o registro
+      this.router.navigate(['/dashboard'])
 
       // Opcional: Atualizar a lista de gastos na tela aqui se necessário
     },
@@ -104,9 +128,14 @@ export class FiltrosComponent implements OnInit{
         categoria: ['', [Validators.required, Validators.minLength(3)]],
         valor: ['', [Validators.required, Validators.minLength(3)]],
         descricao: ['', [Validators.required, Validators.minLength(3)]],
-        data_gasto: ['', [Validators.required]]
+        data_gasto: ['', [Validators.required]],
+        eh_parcelado: [''],
+        total_parcelas: [''],
+        parcela_atual:['']
       });
     }
+
+
 
   ngOnInit(): void {
     this.formGroupGasto = new FormGroup({
@@ -114,15 +143,24 @@ export class FiltrosComponent implements OnInit{
            valor: new FormControl<string | null>(null),
            descricao: new FormControl<string | null>(null),
            data_gasto: new FormControl<Date | null>(null),
+          eh_parcelado: new FormControl<string | null>(null),
+          total_parcelas: new FormControl<string | null>(null),
+          parcela_atual: new FormControl<string | null>(null)
+
        });
 
-    this.grupos = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
+    this. categoriaSaldo=[
+      {id:1, name:"Moradia"},
+      {id:2, name:"Mercado & Feira"},
+      {id:3, name:"Saúde & Bem-estar"},
+      {id:4, name:"Mobilidade"},
+      {id:5, name:"Rolês & Restaurantes"},
+      {id:6, name:"Futuro & Reservas"},
+      {id:7, name:"Outros / Imprevistos"},
+      {id:8, name:"Prove Sabor"},
+  ];
+
+
   }
 
 }
