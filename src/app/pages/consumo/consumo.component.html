@@ -1,69 +1,9 @@
+<div class="flex justify-content-center w-screen h-screen">
+  <div class="flex justify-content-center w-10 h-screen bg-white p-4" >
 
-<div class="flex w-11 justify-content-center shadow-3 m-5 p-2">
-  <div class="flex flex-wrap">
-     <div class="m-2">
-        <label for="icondisplay" class="font-bold block mb-2 mr-2">Inicio</label>
-        <p-calendar
-            [(ngModel)]="date_start"
-            [iconDisplay]="'input'"
-            [showIcon]="true"
-            inputId="icondisplay" />
-      </div>
-
-
-      <div class="m-2">
-          <label for="icondisplay" class="font-bold block mb-2 ">Fim</label>
-          <p-calendar
-              [(ngModel)]="date_end"
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              inputId="icondisplay" />
-      </div>
-
-      <div class="m-2">
-        <label for="icondisplay" class="font-bold block mb-2 ">Grupo</label>
-        <p-dropdown
-            [options]="grupos"
-            [(ngModel)]="selectedGrupos"
-            optionLabel="name"
-            placeholder="Select o grupo" />
-      </div>
-
-      <div class="m-2">
-        <label for="icondisplay" class="font-bold block mb-2 ">Status</label>
-        <p-dropdown
-            [options]="status"
-            [(ngModel)]="selectedStatus"
-            optionLabel="name"
-            placeholder="Select o grupo" />
-      </div>
-
-      <div class="mt-5">
-        <p-button icon="pi pi-search" size="small" [rounded]="true" severity="primary" [outlined]="true" />
-      </div>
-
-      <div class="mt-5 ml-8">
-        <p-button (onClick)="showDialog()" label="Novo registro" size="small" />
-      </div>
-
-      <div class="mt-5 ml-3">
-        <p-button (onClick)="showDialogReceita()" label="Recebimento" size="small" />
-      </div>
-
-
-  </div>
-
-
-
-</div>
-
-<div class="card flex justify-content-center">
-    <p-dialog class="p-2" header="Registrar Novo Gasto" [modal]="true" [(visible)]="visibleDialog "
-      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-      [draggable]="false"
-      [resizable]="false">
-        <div class="flex justify-content-center">
-          <form [formGroup]="formGroupGasto" class="p-fluid">
+    <div class="flex card p-4 shadow-4 h-auto" style="margin-top: 7rem;">
+      <form [formGroup]="formGroupGasto" class="p-fluid mb-3">
+        <span class="flex text-center p-1"><h1>Novo consumo</h1></span>
             <div class="field">
                 <div class="field p-1">
                   <label for="valor">Categoria</label>
@@ -128,17 +68,7 @@
                     <p-button label="Salvar" [raised]="true" (click)="registraGasto()" />
                     <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="visibleDialog = false" />
                 </div>
-
-
          </form>
-        </div>
-    </p-dialog>
+      </div>
+  </div>
 </div>
-
-
-<p-dialog header="Adicionar novo recebimento" [modal]="true" [(visible)]="visibleModalNovaReceita" [style]="{ width: '25rem' }">
-    <div class="m-3 p-3">
-      <app-add-receita></app-add-receita>
-
-    </div>
-</p-dialog>

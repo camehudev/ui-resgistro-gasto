@@ -1,18 +1,22 @@
-<div class="p-4">
-  <div><app-filtros></app-filtros></div>
-  <div><app-cards-resumo></app-cards-resumo></div>
+<div class="flex justify-content-center p-4">
+  <div class="w-10 bg-white mt-6">
+    <div><app-filtros></app-filtros></div>
+      <div><app-cards-resumo></app-cards-resumo></div>
 
-  <div class="flex flex-wrap w-full justify-content-center">
-    <!-- col-12 para mobile, col-6 para telas médias/grandes -->
-      <div class="col-12 md:col-6 justify-content-center shadow-3 m-3 border-round-md" style="background-color: rgb(251, 253, 252); width: 25rem;">
-          <app-donut></app-donut>
+      <div class="flex flex-wrap w-full justify-content-center">
+        <!-- col-12 para mobile, col-6 para telas médias/grandes -->
+          <div class="col-12 md:col-6 justify-content-center shadow-3 m-3 border-round-md" style="background-color: rgb(251, 253, 252); width: 25rem;">
+              <app-donut></app-donut>
+          </div>
+
+          <div class="col-12 md:col-6 shadow-3 m-3 shadow-3 m-3 border-round-md" style="background-color: rgb(255, 255, 255);">
+              <app-barra></app-barra>
+          </div>
       </div>
 
-      <div class="col-12 md:col-6 shadow-3 m-3 shadow-3 m-3 border-round-md" style="background-color: rgb(255, 255, 255);">
-          <app-barra></app-barra>
-      </div>
+    <div> <app-table-gastos></app-table-gastos></div>
+
   </div>
 
- <div> <app-table-gastos></app-table-gastos></div>
 </div>
 

@@ -74,12 +74,21 @@ export class MenuBarComponent {
         },
         {
           label: 'Relatorios',
-          icon: 'pi pi-search',
+          icon: 'pi pi-file',
           routerLink: ['/relatorios'], // Boa prática: definir rota pai se aplicável
           items: [
             { label: 'Core', icon: 'pi pi-bolt', routerLink: ['/relatorios/core'] },
             { label: 'Blocks', icon: 'pi pi-server', routerLink: ['/relatorios/blocks'] },
             { label: 'UI Kit', icon: 'pi pi-pencil', routerLink: ['/relatorios/uikit'] }
+          ]
+        },
+
+        {
+          label: 'Cadastrar',
+          icon: 'pi pi-list-check',
+          items: [
+            { label: 'Recebimento', icon: 'pi pi-arrow-up', command:()=> this.showRecebimentos() },
+            { label: 'Consumo', icon: 'pi pi-arrow-down', command:()=> this.showConsumo() }
           ]
         }
       );
@@ -98,6 +107,16 @@ export class MenuBarComponent {
 
    showPageDashboard(){
     this.router.navigate(['/dashboard']);
+   }
+
+   showRecebimentos(){
+    this.router.navigate(['/recebimento']);
+
+   }
+
+   showConsumo(){
+    this.router.navigate(['/consumo']);
+
    }
 
   // Getter reativo para expor o estado de login no HTML
