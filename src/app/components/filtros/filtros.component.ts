@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AddReceitaComponent } from "../add-receita/add-receita.component";
 
 
 interface Grupo {
@@ -30,8 +31,7 @@ interface Grupo {
     ReactiveFormsModule,
     ToastModule,
     CheckboxModule,
-    CommonModule
- ],
+    CommonModule, AddReceitaComponent],
   templateUrl: './filtros.component.html',
   styleUrl: './filtros.component.css'
 })
@@ -58,6 +58,7 @@ export class FiltrosComponent implements OnInit{
   selectedStatus: Grupo[] | undefined;
   visibleDialog: boolean = false;
   selectedParcelado:boolean=false;
+  visibleModalNovaReceita: boolean=false;
 
   checkdParcelado(){
     this.selectedParcelado= !this.selectedParcelado
@@ -133,6 +134,10 @@ export class FiltrosComponent implements OnInit{
         total_parcelas: [''],
         parcela_atual:['']
       });
+    }
+
+    showDialogReceita(){
+      this.visibleModalNovaReceita=true
     }
 
 

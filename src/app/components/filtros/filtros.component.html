@@ -46,6 +46,10 @@
         <p-button (onClick)="showDialog()" label="Novo registro" size="small" />
       </div>
 
+      <div class="mt-5 ml-3">
+        <p-button (onClick)="showDialogReceita()" label="Recebimento" size="small" />
+      </div>
+
 
   </div>
 
@@ -130,3 +134,11 @@
         </div>
     </p-dialog>
 </div>
+
+
+<p-dialog header="Adicionar novo recebimento" [modal]="true" [(visible)]="visibleModalNovaReceita" [style]="{ width: '25rem' }">
+    <div class="m-3 p-3">
+      <app-add-receita></app-add-receita>
+
+    </div>
+</p-dialog>
