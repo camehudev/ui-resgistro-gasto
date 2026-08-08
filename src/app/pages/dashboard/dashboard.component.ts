@@ -14,7 +14,6 @@ import { CategoriaSomaDTO } from '../../interfaces/categoria-soma.model';
 import { CardsResumoComponent } from '../../components/cards-resumo/cards-resumo.component';
 import { FiltrosComponent } from '../../components/filtros/filtros.component';
 import { ChartComboDemo } from "../../components/charts/barra/barra.component";
-import { TableGastosComponent } from '../../components/table-gastos/table-gastos.component';
 import { ButtonModule } from 'primeng/button';
 import { DonutComponent } from "../../components/charts/donut/donut.component";
 
@@ -23,7 +22,7 @@ import { DonutComponent } from "../../components/charts/donut/donut.component";
   selector: 'app-dashboard',
   standalone: true,
   imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, TableModule, CardsResumoComponent, FiltrosComponent,
-    ChartComboDemo, TableGastosComponent, ButtonModule, DonutComponent],
+    ChartComboDemo, ButtonModule, DonutComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

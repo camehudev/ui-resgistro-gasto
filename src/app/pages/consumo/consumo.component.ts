@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
+import { TableGastosComponent } from '../../components/table-gastos/table-gastos.component';
 
 interface Grupo {
     name: string;
@@ -29,11 +30,13 @@ interface Grupo {
       ReactiveFormsModule,
       ToastModule,
       CheckboxModule,
-      CommonModule],
+      CommonModule,
+      TableGastosComponent],
   templateUrl: './consumo.component.html',
   styleUrl: './consumo.component.css'
 })
 export class ConsumoComponent implements OnInit {
+  visibleDialogRegistro:boolean=false
 
   ngOnInit(): void {
 
@@ -90,7 +93,7 @@ export class ConsumoComponent implements OnInit {
 
 
     showDialog(){
-      this.visibleDialog = true;
+      this.visibleDialogRegistro = true;
 
     }
 
@@ -130,10 +133,9 @@ export class ConsumoComponent implements OnInit {
       console.log('Passou no next! Tentando disparar o toast...');
 
       // Correção: Chamada direta sem setInterval e padronização do nome do serviço
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro salvo com sucesso!', life:1500 });
-
       this.visibleDialog = false; // Fecha o diálogo após o registro bem-sucedido
       this.formGroupGasto.reset(); // Limpa o formulário após o registro
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro salvo com sucesso!', life:1500 });
       this.router.navigate(['/dashboard'])
 
       // Opcional: Atualizar a lista de gastos na tela aqui se necessário

@@ -1,9 +1,23 @@
-<div class="flex justify-content-center w-screen h-screen">
-  <div class="flex justify-content-center p-4" >
+<div class="flex flex-column justify-content-center">
+  <div class="flex flex-column justify-content-center" style="margin-top: 9rem;" >
 
-    <div class="flex card p-4 h-auto bg-white shadow-4" style="margin-top: 7rem;">
-      <form [formGroup]="formGroupGasto" class="p-fluid mb-3 ">
-        <span class="flex text-center p-1"><h1>Novo consumo</h1></span>
+    <div class="ml-8 mr-8 p-3">
+      <p-button label="Novo registro" (click)="showDialog()"></p-button>
+    </div>
+
+    <div> <app-table-gastos></app-table-gastos></div>
+  </div>
+
+<p-dialog
+    header="Novo consumo"
+    [(visible)]="visibleDialogRegistro"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false">
+  <div class="flex w-auto">
+      <form [formGroup]="formGroupGasto" class="p-fluid ">
             <div class="field">
                 <div class="field p-1">
                   <label for="valor">Categoria</label>
@@ -70,5 +84,4 @@
                 </div>
          </form>
       </div>
-  </div>
-</div>
+</p-dialog>

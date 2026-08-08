@@ -1,22 +1,23 @@
-<div class="flex w-full justify-content-center p-4">
-  <div class="mt-6">
-    <div class=""><app-filtros></app-filtros></div>
-      <div><app-cards-resumo></app-cards-resumo></div>
+<div class="flex flex-column justify-content-center p-2">
 
-      <div class="flex flex-wrap w-full justify-content-center">
-        <!-- col-12 para mobile, col-6 para telas médias/grandes -->
-          <div class="col-12 md:col-6 justify-content-center shadow-3 m-3 border-round-md" style="background-color: rgb(251, 253, 252); width: 25rem;">
-              <app-donut></app-donut>
-          </div>
+    <div style="margin-top: 2.5rem;" >
+      <app-filtros></app-filtros>
+    </div>
+    <div class="flex justify-content-center">
+      <app-cards-resumo></app-cards-resumo>
+    </div>
 
-          <div class="col-12 md:col-6 shadow-3 m-3 shadow-3 m-3 border-round-md" style="background-color: rgb(255, 255, 255);">
-              <app-barra></app-barra>
-          </div>
-      </div>
+    <div class="flex flex-wrap align-items-center border-round-md shadow-3 bg-white">
+        <div class="col-12 md:col-6 ">
+            <app-donut></app-donut>
+        </div>
 
-    <div> <app-table-gastos></app-table-gastos></div>
-
-  </div>
+        <div class="col-12 md:col-6">
+            <app-barra></app-barra>
+        </div>
+    </div>
 
 </div>
+
+
 
