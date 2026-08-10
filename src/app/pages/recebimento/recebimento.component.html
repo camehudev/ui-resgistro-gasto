@@ -1,0 +1,59 @@
+<div class="flex flex-column justify-content-center">
+  <div class="flex flex-column justify-content-center" style="margin-top: 9rem;" >
+
+    <div class="ml-8 mr-8 p-3">
+      <p-button label="Novo registro" (click)="showDialogRecebimento()"></p-button>
+    </div>
+
+
+  </div>
+
+<p-dialog
+    header="Novo consumo"
+    [(visible)]="visibleDialogRecebimento"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '22vw' }"
+    [draggable]="false"
+    [resizable]="false">
+  <div class="flex w-auto p-2">
+      <form [formGroup]="formGroupGasto" class="p-fluid ">
+            <div class="field">
+                <div class="field p-1">
+                  <label for="valor">Categoria</label>
+                      <p-dropdown
+                          [options]="categoriaSaldo"
+                          formControlName="categoria"
+                          optionLabel="name"
+                           />
+                </div>
+                <div class="field">
+                    <label for="valor">Valor</label>
+                    <input class="w-full" id="valor" type="text" formControlName="valor" pInputText />
+                </div>
+
+             <div class="field">
+                    <label for="descrição">Descrição</label>
+                    <textarea class="w-full" id="descrição" formControlName="descricao" pInputText></textarea>
+                </div>
+
+               <div class="fluid">
+                  <label for="data">Data</label>
+                  <p-calendar
+                    formControlName="data_gasto"
+                    class="w-full"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                    [appendTo]="'body'"> <!-- Adicionado aqui -->
+                  </p-calendar>
+                </div>
+            </div>
+
+                <div class="flex justify-content-center p-3 m-3 gap-2">
+                    <p-button label="Salvar" [raised]="true" (click)="registrarParcelamento()" />
+                    <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="visibleDialogRecebimento = false" />
+                </div>
+         </form>
+      </div>
+</p-dialog>
