@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
 
   formGroup!: FormGroup;
+  constructor(private messageService: MessageService){}
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -35,11 +37,14 @@ export class LoginComponent implements OnInit {
 
         // O AuthService já atualiza o Signal 'isAuthenticated' internamente no pipe(tap(...))
         // Agora basta redirecionar o usuário para o dashboard com segurança
-        this.router.navigate(['/dashboard']);
+         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Login com sucesso! Bem vindo!', life:1500 });
+         setTimeout(()=>{
+          this.router.navigate(['/dashboard']);
+         },1000)
       },
       error: (error) => {
         console.error('Login failed:', error);
-        // Aqui você pode adicionar uma tratativa de erro amigável para o usuário (ex: Toast do PrimeNG)
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Problema ao efetuar login. Tente novamente.', life: 2500 });
       }
     });
   }
