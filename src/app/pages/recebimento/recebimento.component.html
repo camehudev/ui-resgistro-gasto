@@ -5,55 +5,56 @@
       <p-button label="Novo registro" (click)="showDialogRecebimento()"></p-button>
     </div>
 
- <app-add-receita></app-add-receita>
+    <!-- Removido o (upTableReceita) pois o Pai agora comanda o Filho via ViewChild -->
+    <app-add-receita></app-add-receita>
 
   </div>
 
-<p-dialog
-    header="Novo consumo"
-    [(visible)]="visibleDialogRecebimento"
-    [modal]="true"
-    [style]="{ width: 'auto'}"
-    [draggable]="false"
-    [resizable]="false">
-  <div class="flex w-auto p-2">
-      <form [formGroup]="formGroupReceitas" class="p-fluid ">
-            <div class="field">
-                <div class="field p-1">
-                  <label for="valor">Categoria</label>
-                      <p-dropdown
-                          [options]="categoriaReceitas"
-                          formControlName="categoria"
-                          optionLabel="name"
-                           />
-                </div>
-                <div class="field">
-                    <label for="valor">Valor</label>
-                    <input class="w-full" id="valor" type="text" formControlName="valor" pInputText />
-                </div>
+  <p-dialog
+      header="Novo consumo"
+      [(visible)]="visibleDialogRecebimento"
+      [modal]="true"
+      [style]="{ width: 'auto'}"
+      [draggable]="false"
+      [resizable]="false">
+    <div class="flex w-auto p-2">
+        <form [formGroup]="formGroupReceitas" class="p-fluid ">
+              <div class="field">
+                  <div class="field p-1">
+                    <label for="valor">Categoria</label>
+                        <p-dropdown
+                            [options]="categoriaReceitas"
+                            formControlName="categoria"
+                            optionLabel="name" />
+                  </div>
+                  <div class="field">
+                      <label for="valor">Valor</label>
+                      <input class="w-full" id="valor" type="text" formControlName="valor" pInputText />
+                  </div>
 
-             <div class="field">
-                    <label for="descrição">Descrição</label>
-                    <textarea class="w-full" id="descrição" formControlName="descricao" pInputText></textarea>
-                </div>
+               <div class="field">
+                      <label for="descrição">Descrição</label>
+                      <textarea class="w-full" id="descrição" formControlName="descricao" pInputText></textarea>
+                  </div>
 
-               <div class="fluid">
-                  <label for="data">Data</label>
-                  <p-calendar
-                    formControlName="data_recebimento"
-                    class="w-full"
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    inputId="icondisplay"
-                    [appendTo]="'body'">
-                  </p-calendar>
-                </div>
-            </div>
+                 <div class="fluid">
+                    <label for="data">Data</label>
+                    <p-calendar
+                      formControlName="data_recebimento"
+                      class="w-full"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                      [appendTo]="'body'">
+                    </p-calendar>
+                  </div>
+              </div>
 
-                <div class="flex justify-content-center p-3 m-3 gap-2">
-                    <p-button label="Salvar" [raised]="true" (click)="addRecebimento()" />
-                    <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="visibleDialogRecebimento = false" />
-                </div>
+              <div class="flex justify-content-center p-3 m-3 gap-2">
+                  <p-button label="Salvar" [raised]="true" (click)="addRecebimento()" />
+                  <p-button label="Cancelar" [raised]="true" severity="secondary" (click)="visibleDialogRecebimento = false" />
+              </div>
          </form>
       </div>
-</p-dialog>
+  </p-dialog>
+</div>

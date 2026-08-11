@@ -5,7 +5,6 @@ import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ReceitaService } from '../../services/receitas.service';
 
-
 @Component({
   selector: 'app-add-receita',
   standalone: true,
@@ -14,34 +13,29 @@ import { ReceitaService } from '../../services/receitas.service';
     InputTextModule,
     RippleModule,
     CommonModule,
-    TableModule,],
+    TableModule
+  ],
   templateUrl: './add-receita.component.html',
   styleUrl: './add-receita.component.css'
 })
 export class AddReceitaComponent implements OnInit {
 
-    constructor(private receitas: ReceitaService){}
+  recebimentos: any[] = [];
 
-    recebimentos: any[]=[];
-
-    getAllRecebimentos(){
-    this.receitas.listarTodas().subscribe(
-      (res)=>{
-        this.recebimentos = res;
-        console.log(this.recebimentos.length)
-
-
-      }
-    )
-
-  }
+  constructor(private receitasService: ReceitaService) {}
 
   ngOnInit(): void {
     this.getAllRecebimentos();
-
   }
 
-
-
-
+  // Método público para recarregar a tabela sob demanda
+  getAllRecebimentos(){
+    this.receitasService.listarTodas().subscribe({
+      next: (res) => {
+        this.recebimentos = res;
+        console.log('Total de registros carregados:', this.recebimentos.length);
+      },
+      error: (err) => console.error('Erro ao buscar receitas:', err)
+    });
+  }
 }

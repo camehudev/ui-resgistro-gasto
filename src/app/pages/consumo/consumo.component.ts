@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { AddReceitaComponent } from '../../components/add-receita/add-receita.component';
 import { GastoService } from '../../services/gasto.service';
 import { MessageService } from 'primeng/api';
@@ -36,6 +36,8 @@ interface Grupo {
   styleUrl: './consumo.component.css'
 })
 export class ConsumoComponent implements OnInit {
+  @ViewChild(TableGastosComponent) tableGastosComponent!: TableGastosComponent;
+
   visibleDialogRegistro:boolean=false
 
   ngOnInit(): void {
@@ -136,7 +138,7 @@ export class ConsumoComponent implements OnInit {
       this.visibleDialog = false; // Fecha o diálogo após o registro bem-sucedido
       this.formGroupGasto.reset(); // Limpa o formulário após o registro
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro salvo com sucesso!', life:1500 });
-      this.router.navigate(['/dashboard'])
+      this.tableGastosComponent.listarGastos();
 
       // Opcional: Atualizar a lista de gastos na tela aqui se necessário
     },
