@@ -121,8 +121,8 @@ export class ConsumoComponent implements OnInit {
   const dtoRegistro = {
     categoria: this.formGroupGasto?.value.categoria?.name,
     valor: Number(this.formGroupGasto?.value.valor),
-    total_parcelas: this.formGroupGasto?.value.otal_parcelas,
-    parcela_atual: this.formGroupGasto?.value.parcela_atual,
+    total_parcelas: this.formGroupGasto?.value.total_parcelas?this.formGroupGasto?.value.total_parcelas:0,
+    parcela_atual: this.formGroupGasto?.value.parcela_atual?this.formGroupGasto?.value.parcela_atual:0,
     descricao: this.formGroupGasto?.value.descricao,
     data_gasto: dataFormatada,
   };
