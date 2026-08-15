@@ -90,7 +90,7 @@ export class ConsumoComponent implements OnInit {
 
     checkdParcelado(){
       this.selectedParcelado= !this.selectedParcelado
-      console.log();
+
     }
 
 
@@ -121,21 +121,21 @@ export class ConsumoComponent implements OnInit {
   const dtoRegistro = {
     categoria: this.formGroupGasto?.value.categoria?.name,
     valor: Number(this.formGroupGasto?.value.valor),
-    total_parcelas: this.formGroupGasto?.value.total_parcelas?this.formGroupGasto?.value.total_parcelas:0,
-    parcela_atual: this.formGroupGasto?.value.parcela_atual?this.formGroupGasto?.value.parcela_atual:0,
     descricao: this.formGroupGasto?.value.descricao,
     data_gasto: dataFormatada,
+    data_criacao: new Date().toISOString().split('T')[0], // Resultado: "2026-08-14"
+    total_parcelas: this.formGroupGasto?.value.total_parcelas?this.formGroupGasto?.value.total_parcelas:0,
+    parcela_atual: this.formGroupGasto?.value.parcela_atual?this.formGroupGasto?.value.parcela_atual:0,
+
   };
 
-  console.log(dtoRegistro)
 
   this.gastoService.criarGasto(dtoRegistro).subscribe({
     next: (response) => {
       // Verificação robusta de sucesso (pode ser response ou checar status HTTP dependendo do seu backend)
-      console.log('Passou no next! Tentando disparar o toast...');
 
       // Correção: Chamada direta sem setInterval e padronização do nome do serviço
-      this.visibleDialog = false; // Fecha o diálogo após o registro bem-sucedido
+      this.visibleDialogRegistro = false; // Fecha o diálogo após o registro bem-sucedido
       this.formGroupGasto.reset(); // Limpa o formulário após o registro
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro salvo com sucesso!', life:1500 });
       this.tableGastosComponent.listarGastos();

@@ -1,12 +1,12 @@
+
+
 .container-filtros{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
   width: 90vw;
   flex-wrap: wrap;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background-color: rgb(253, 253, 253);
   margin-top: 1.5rem;
 

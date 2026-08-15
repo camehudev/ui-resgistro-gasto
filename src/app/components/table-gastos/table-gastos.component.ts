@@ -24,7 +24,7 @@ export class TableGastosComponent implements OnInit {
     this.gastoService.listarTodos().subscribe({
       next: (dados) => {
         this.gastosRegistrados = dados;
-        console.log('GT: ', this.gastosRegistrados)
+
       },
       error: (erro) => {
         console.error('Erro ao buscar gastos:', erro);

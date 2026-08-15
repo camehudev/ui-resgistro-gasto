@@ -62,7 +62,7 @@ export class FiltrosComponent implements OnInit{
 
   checkdParcelado(){
     this.selectedParcelado= !this.selectedParcelado
-    console.log();
+
   }
 
 
@@ -106,7 +106,7 @@ export class FiltrosComponent implements OnInit{
   this.gastoService.criarGasto(dtoRegistro).subscribe({
     next: (response) => {
       // Verificação robusta de sucesso (pode ser response ou checar status HTTP dependendo do seu backend)
-      console.log('Passou no next! Tentando disparar o toast...');
+
 
       // Correção: Chamada direta sem setInterval e padronização do nome do serviço
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registro salvo com sucesso!', life:1500 });

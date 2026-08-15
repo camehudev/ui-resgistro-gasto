@@ -36,13 +36,13 @@
                 {{product.valor | currency:'BRL'}}
             </td>
             <td>
-                {{product.parcela_atual? product.parcela_atual: 'N/A'}}
+                {{product.parcelaAtual? product.parcelaAtual: 'N/A'}}
             </td>
             <td>
-                {{product.total_parcelas? product.total_parcelas: 'N/A'}}
+                {{product.totalParcelas? product.totalParcelas: 'N/A'}}
             </td>
             <td>
-                {{product.data | date:'dd/MM/yyyy'}}
+                {{product.dataGasto | date:'dd/MM/yyyy'}}
             </td>
 
         </tr>

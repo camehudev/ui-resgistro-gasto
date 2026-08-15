@@ -33,7 +33,6 @@ export class AddReceitaComponent implements OnInit {
     this.receitasService.listarTodas().subscribe({
       next: (res) => {
         this.recebimentos = res;
-        console.log('Total de registros carregados:', this.recebimentos.length);
       },
       error: (err) => console.error('Erro ao buscar receitas:', err)
     });

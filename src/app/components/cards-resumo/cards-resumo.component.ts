@@ -26,7 +26,6 @@ getTotalGastos(){
     (response)=>{
 
       this.listaGastos=response
-      console.log(response)
     }
   )
 }
