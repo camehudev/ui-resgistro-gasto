@@ -54,6 +54,9 @@ export class FiltrosComponent implements OnInit{
 
   formGroupGasto!: FormGroup;
   categoriaSaldo: any[]=[];
+  totalReceitas: any=[]=[];
+  totalDespesas: any[]=[];
+  saldoDispivel: any[]=[];
 
   selectedStatus: Grupo[] | undefined;
   visibleDialog: boolean = false;
@@ -75,6 +78,20 @@ export class FiltrosComponent implements OnInit{
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
     }
 
+
+getResumoCategoria(){
+  this.gastoService.resumoGastos().subscribe({
+      next: (response) => {
+
+        console.log('resumo=>',  response)
+      },
+      error: (error) => {
+      console.error('Verique a API:', error);
+       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Problema ao reesgatar dados. Por favor, tente novamente.', life:1500 });
+
+    }
+  })
+}
 
 
 // Converte a data para o formato de string YYYY-MM-DD de forma segura
@@ -164,6 +181,8 @@ export class FiltrosComponent implements OnInit{
       {id:7, name:"Outros / Imprevistos"},
       {id:8, name:"Prove Sabor"},
   ];
+
+    this.getResumoCategoria();
 
 
   }

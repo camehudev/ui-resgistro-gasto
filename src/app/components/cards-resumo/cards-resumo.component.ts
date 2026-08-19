@@ -5,6 +5,8 @@ import { response } from 'express';
 import { resolve } from 'node:path';
 
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ReceitaService } from '../../services/receitas.service';
+import { ResumoService } from '../../services/resumo.service';
 
 
 @Component({
@@ -16,10 +18,11 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 })
 export class CardsResumoComponent implements OnInit{
 
-  constructor(private gastoService: GastoService){}
+  constructor(private gastoService: GastoService, private resumoService: ResumoService ){}
 
   totalGastos: any[]=[]
   listaGastos: any[]=[]
+  totaisSaldos: any
 
 getTotalGastos(){
   this.gastoService.listarTodos().subscribe(
@@ -28,6 +31,17 @@ getTotalGastos(){
       this.listaGastos=response
     }
   )
+}
+
+getResumototais(){
+  this.resumoService.listarTotais().subscribe({
+    next: response=>{
+
+      this.totaisSaldos = response
+      console.log('TOTAIS: ', this.totaisSaldos)
+    },
+      error: (err) => console.error('Erro ao buscar receitas:', err)
+  })
 }
 
 get totalDespesas(): number {
@@ -40,7 +54,8 @@ get totalDespesas(): number {
 
   ngOnInit(): void {
 
-    this.getTotalGastos()
+    this.getTotalGastos();
+    this.getResumototais();
 
 
 

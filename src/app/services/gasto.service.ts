@@ -27,8 +27,8 @@ export class GastoService {
     return this.http.get<any>(`${this.baseUrl}/resumo`, { withCredentials: true });
   }
 
-  criarGasto(dto: any): Observable<Gasto> {
 
+  criarGasto(dto: any): Observable<Gasto> {
     return this.http.post<any>(`${this.baseUrl}`, dto, {
       withCredentials: true // Mantém o suporte a cookies/sessão se a sua API exigir
     });
