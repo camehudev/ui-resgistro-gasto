@@ -44,3 +44,6 @@ Thumbs.db
 #environment
 environment
 /environment
+environments
+/environments
+.env

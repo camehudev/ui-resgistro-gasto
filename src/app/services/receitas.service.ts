@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Receita } from '../models/receita.model';
-//import { environment } from '../../environments/environment.development';
-import { environment } from '../../environments/environment.production';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({

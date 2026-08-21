@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { Gasto } from '../models/gasto.model';
 //import { CategoriaSomaDTO } from '../interfaces/categoria-soma.model';
 
-//import { environment } from '../../environments/environment.development'; 
-import { environment } from '../../environments/environment.production';
+import { environment } from '../../environments/environment';
 
 
 // Ajuste conforme o padrão do seu angular.json para environments

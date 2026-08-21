@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, of, map } from 'rxjs';
 //import { environment } from '../../environments/environment.development';
-import { environment } from '../../environments/environment.production';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
