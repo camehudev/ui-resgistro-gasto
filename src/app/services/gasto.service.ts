@@ -26,6 +26,10 @@ export class GastoService {
     return this.http.get<any>(`${this.baseUrl}/resumo`, { withCredentials: true });
   }
 
+   resumoMensalGastos(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/resumo-mensal`, { withCredentials: true });
+  }
+
 
   criarGasto(dto: any): Observable<Gasto> {
     return this.http.post<any>(`${this.baseUrl}`, dto, {

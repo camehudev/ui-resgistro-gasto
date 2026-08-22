@@ -38,7 +38,7 @@ getResumototais(){
     next: response=>{
 
       this.totaisSaldos = response
-      console.log('TOTAIS: ', this.totaisSaldos)
+
     },
       error: (err) => console.error('Erro ao buscar receitas:', err)
   })

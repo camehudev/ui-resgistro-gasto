@@ -27,7 +27,6 @@ export class DonutComponent implements OnInit {
     this.gastoService.resumoGastos().subscribe({
       next: (response) => {
         this.totaisGastos = response;
-        console.log("Dados recebidos da API:", this.totaisGastos);
 
         // O processamento e a montagem do gráfico OCORREM AQUI DENTRO,
         // garantindo que os dados já estão disponíveis na memória.
@@ -45,7 +44,7 @@ export class DonutComponent implements OnInit {
 
     // 2. Extração dinâmica dos Dados (Valores Totais)
     const valores = dados.map(item => item.total);
-    console.log("Valores processados:", valores);
+
 
     // 3. Paleta expandida de cores modernas
     const coresBase = [

@@ -83,7 +83,6 @@ getResumoCategoria(){
   this.gastoService.resumoGastos().subscribe({
       next: (response) => {
 
-        console.log('resumo=>',  response)
       },
       error: (error) => {
       console.error('Verique a API:', error);
@@ -118,7 +117,6 @@ getResumoCategoria(){
     data_gasto: dataFormatada,
   };
 
-  console.log(dtoRegistro)
 
   this.gastoService.criarGasto(dtoRegistro).subscribe({
     next: (response) => {
