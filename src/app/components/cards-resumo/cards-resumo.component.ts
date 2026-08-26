@@ -36,6 +36,7 @@ getTotalGastos(){
 getResumototais(){
   this.resumoService.listarTotais().subscribe({
     next: response=>{
+      console.log(response)
 
       this.totaisSaldos = response
 

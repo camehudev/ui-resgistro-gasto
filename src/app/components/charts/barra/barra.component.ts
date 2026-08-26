@@ -111,7 +111,7 @@ carregarGraficoReceitasDespesas(dadosDaApi: any[]) {
             {
                 type: 'bar' as const,
                 label: 'Receitas',
-                backgroundColor: documentStyle.getPropertyValue('--blue-100'),
+                backgroundColor: documentStyle.getPropertyValue('--green-300'),
                 data: this.dadosReceitas,
                 borderColor: 'white',
                 borderWidth: 2
@@ -119,7 +119,7 @@ carregarGraficoReceitasDespesas(dadosDaApi: any[]) {
             {
                 type: 'bar' as const,
                 label: 'Despesas',
-                backgroundColor: documentStyle.getPropertyValue('--blue-200'),
+                backgroundColor: documentStyle.getPropertyValue('--green-500'),
                 data: this.dadosDespesas,
                 borderColor: 'white',
                 borderWidth: 2
